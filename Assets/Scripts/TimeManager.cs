@@ -11,6 +11,7 @@ public class TimeManager : MonoBehaviour
 
     private void Start()
     {
+        m_timeIsRunning = true;
         m_timeText = this.gameObject.GetComponent<TextMeshProUGUI>();
     }
 
