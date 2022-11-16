@@ -48,17 +48,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   freeze: 0
   input: {x: 0, y: 0}
-  targetAcceleration: 20
+  targetAcceleration: 15
   passiveAcceleration: 2
   acceleration: 0
   accelerationBoost: 0
   passiveAccelerate: 1
-  smoothSteer: 36
-  steerBounds: 10
+  smoothSteer: 28
+  steerBounds: 12
   steerDir: 0
   drifting: 0
   driftDirection: 0
   kartAngle: 0
+  kartAngleSmooth: 4
 --- !u!135 &2821029486898479806
 SphereCollider:
   m_ObjectHideFlags: 0

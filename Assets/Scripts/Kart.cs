@@ -25,6 +25,7 @@ public class Kart : MonoBehaviour
     [Header("Visuals")]
     Transform kartmodel;
     [SerializeField] float kartAngle;
+    public float kartAngleSmooth = 4;
     
     // Start is called before the first frame update
     void Start()
@@ -77,6 +78,20 @@ public class Kart : MonoBehaviour
                     drifting = false;
                 }
             }
+            
+            //Rotate kart if drifting
+            if (drifting)
+            {
+                kartAngle = Mathf.Lerp(kartAngle, 
+                ((drifting) ? ((driftDirection == 1) ? (steerBounds*(input.x-1.5f))/1.5f : (steerBounds*(input.x+1.5f))/1.5f) : 0)*2, 
+                Time.deltaTime*kartAngleSmooth*(drifting ? 1 : 2));
+            }
+            else
+            {
+                kartAngle = Mathf.Lerp(kartAngle, 0, Time.deltaTime*kartAngleSmooth); 
+            }
+            
+            kartmodel.localEulerAngles = new Vector3(0,kartAngle,0);
 
             //Steering (clamped between steerBounds)
             if (drifting)
@@ -92,7 +107,6 @@ public class Kart : MonoBehaviour
                 else {drifting = false;}
             }
             else {
-
                 //Normal steering
                 steerDir = Mathf.Clamp(Mathf.MoveTowards(steerDir, steerBounds*input.x, Time.deltaTime*(smoothSteer*10)), -steerBounds*(acceleration/targetAcceleration), steerBounds*(acceleration/targetAcceleration));
             }
