@@ -22,10 +22,14 @@ public class Kart : MonoBehaviour
     public bool drifting;
     [Range(-1,1)] public int driftDirection; //-1 = left, 1 = right
     
+    [Header("Visuals")]
+    Transform kartmodel;
+    [SerializeField] float kartAngle;
+    
     // Start is called before the first frame update
     void Start()
     {
-        
+        kartmodel = transform.GetChild(0);
     }
 
     // Update is called once per frame
@@ -42,28 +46,26 @@ public class Kart : MonoBehaviour
 
             //Accelerate towards target acceleration.
             acceleration = Mathf.Clamp(Mathf.MoveTowards(acceleration, acceleration+passiveAcceleration, (Time.deltaTime*passiveAcceleration) * ((passiveAccelerate ? 1 : 0)+input.y)), -targetAcceleration, targetAcceleration);
-            accelerationBoost = Mathf.Clamp(Mathf.MoveTowards(accelerationBoost, 0, Time.deltaTime*passiveAcceleration*2), 0, Mathf.Infinity);
+            accelerationBoost = Mathf.Clamp(Mathf.MoveTowards(accelerationBoost, 0, Time.deltaTime*passiveAcceleration), 0, Mathf.Infinity);
 
             //Apply drifting
+            if (Input.GetKeyDown(KeyCode.Space) && (drifting != true))
+            {
+                if (steerDir > (steerBounds/2))
+                {
+                    driftDirection = -1;
+                    drifting = true;
+                }
+                if (steerDir < -(steerBounds/2))
+                {
+                    driftDirection = 1;
+                    drifting = true;
+                }
+            }
+            
             if (Input.GetKey(KeyCode.Space))
             {
-                if (drifting != true)
-                {
-                    if (steerDir > (steerBounds/2))
-                    {
-                        driftDirection = -1;
-                        drifting = true;
-                    }
-                    if (steerDir < -(steerBounds/2))
-                    {
-                        driftDirection = 1;
-                        drifting = true;
-                    }
-                }
-                else
-                {
-                    driftPower += Time.deltaTime*2;
-                }
+                driftPower += Time.deltaTime*2;
             }
             else
             {

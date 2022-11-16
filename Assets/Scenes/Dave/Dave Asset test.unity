@@ -5429,10 +5429,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerKart
       objectReference: {fileID: 0}
-    - target: {fileID: 1388430300873739759, guid: 52daefac7cc28f04cb02c74dc4fddc00, type: 3}
-      propertyPath: steerBounds
-      value: 10
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 52daefac7cc28f04cb02c74dc4fddc00, type: 3}
 --- !u!1001 &3477444064059348412
@@ -5452,7 +5448,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3477444063457020351, guid: 28d359c704a44444484c18f452fd4d6a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 27.2
+      value: -15
       objectReference: {fileID: 0}
     - target: {fileID: 3477444063457020351, guid: 28d359c704a44444484c18f452fd4d6a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5460,7 +5456,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3477444063457020351, guid: 28d359c704a44444484c18f452fd4d6a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 12.1
+      value: -33
       objectReference: {fileID: 0}
     - target: {fileID: 3477444063457020351, guid: 28d359c704a44444484c18f452fd4d6a, type: 3}
       propertyPath: m_LocalRotation.w

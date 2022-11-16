@@ -9,6 +9,7 @@ public class CameraAcceleration : MonoBehaviour
     public AnimationCurve speedcurve;
     public float curveRange;
     public Transform camobj;
+    public float camSmooth = 4;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +20,6 @@ public class CameraAcceleration : MonoBehaviour
     void Update()
     {
         float camDist = Mathf.Lerp(dist.x, dist.y, speedcurve.Evaluate((Mathf.Clamp(kart.acceleration/curveRange, 0,1))));
-        camobj.localPosition = new Vector3(0,0,-camDist);
+        camobj.localPosition = Vector3.Lerp(camobj.localPosition, new Vector3(0,0,-camDist), Time.deltaTime*camSmooth);
     }
 }
