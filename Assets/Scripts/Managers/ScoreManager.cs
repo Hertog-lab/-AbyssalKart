@@ -22,28 +22,17 @@ public class ScoreManager : MonoBehaviour
             float timeToCalculate = milliSeconds + (seconds * 1000) + ((minutes * 60) * 1000);
 
             float calculatedtime = oldTimeToCalculate % timeToCalculate;
-            if(calculatedtime > 0)
+            float result = calculatedtime / (secondsPerPoints * 1000);
+            print(result);
+
+            result = Mathf.RoundToInt(result);
+            if(result <= 0)
             {
-                float result = calculatedtime / (secondsPerPoints * 1000);
-                result = Mathf.RoundToInt(result);
-                return (int)result;
-            }
-            else if(calculatedtime < 0)
-            {
-                float result = calculatedtime / (secondsPerPoints * 1000);
-                result = Mathf.RoundToInt(result);
-                if(result <= 0)
-                {
-                    return 0;
-                }
-                else
-                {
-                    return (int)result;
-                }
+                return 0;
             }
             else
             {
-                return startPoints;
+                return (int)result;
             }
         }
         else

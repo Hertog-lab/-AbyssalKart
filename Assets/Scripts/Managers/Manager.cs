@@ -53,7 +53,10 @@ public class Manager : MonoBehaviour
         {
             Destroy(this);
             Debug.LogError("Instance already exists!");
+            
         }
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
     protected virtual void OnDisable()
     {
