@@ -21,7 +21,7 @@ public class ScoreManager : MonoBehaviour
             float milliSeconds = lapTime.milliSeconds;
             float timeToCalculate = milliSeconds + (seconds * 1000) + ((minutes * 60) * 1000);
 
-            float calculatedtime = oldTimeToCalculate % timeToCalculate;
+            float calculatedtime = oldTimeToCalculate - timeToCalculate;
             float result = calculatedtime / (secondsPerPoints * 1000);
             print(result);
 
