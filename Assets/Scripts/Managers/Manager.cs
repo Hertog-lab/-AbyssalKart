@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class Manager : MonoBehaviour
@@ -8,6 +9,7 @@ public class Manager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI lapText;
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI oldTimeText;
+    [SerializeField] private GameObject gameOverMenu;
 
     private Manager instance;
     private TimeManager timeManager;
@@ -18,6 +20,7 @@ public class Manager : MonoBehaviour
     private int score;
     private void Start()
     {
+        gameOverMenu.SetActive(false);
         timeManager = FindObjectOfType<TimeManager>();
         scoreManager = FindObjectOfType<ScoreManager>();
         lapCount = 0;
@@ -26,10 +29,7 @@ public class Manager : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Lap();
-        }
+
     }
     public void Lap()
     {
@@ -58,6 +58,19 @@ public class Manager : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
+
+    public void GameOver()
+    {
+        Time.timeScale = 0;
+        gameOverMenu.SetActive(true);
+    }
+
+    public void Restart()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.SetActiveScene(scene);
+    }
+
     protected virtual void OnDisable()
     {
         if (instance == this) instance = null;
