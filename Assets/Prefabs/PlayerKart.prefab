@@ -110,6 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c94dd43d1aa2fb540908ee0ac26aa9e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  freeze: 0
   input: {x: 0, y: 0}
   targetAcceleration: 10
   passiveAcceleration: 2
@@ -117,7 +118,7 @@ MonoBehaviour:
   accelerationBoost: 0
   passiveAccelerate: 1
   smoothSteer: 36
-  steerBounds: 15
+  steerBounds: 10
   steerDir: 0
   drifting: 0
   driftDirection: 0
