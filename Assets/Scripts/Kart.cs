@@ -60,7 +60,7 @@ public class Kart : MonoBehaviour
             }
             else
             {
-                driftPower += Time.deltaTime;
+                driftPower += Time.deltaTime*2;
             }
         }
         else
@@ -79,11 +79,11 @@ public class Kart : MonoBehaviour
         {
             if (driftDirection == -1) {   
                 //Drifting to the left
-                steerDir = steerBounds/2 + Mathf.Clamp(Mathf.MoveTowards(steerDir, steerBounds*input.x, Time.deltaTime*(smoothSteer*10)), -steerBounds*(acceleration/targetAcceleration), steerBounds*(acceleration/targetAcceleration));
+                steerDir = Mathf.Clamp(Mathf.MoveTowards(steerDir, (steerBounds*(input.x+1.5f))/1.5f, Time.deltaTime*(smoothSteer*10)), -steerBounds*2*(acceleration/targetAcceleration), steerBounds*2*(acceleration/targetAcceleration));
             }
             else if (driftDirection == 1) {
                 //Drifting to the right
-                steerDir = -steerBounds/2 + Mathf.Clamp(Mathf.MoveTowards(steerDir, steerBounds*input.x, Time.deltaTime*(smoothSteer*10)), -steerBounds*(acceleration/targetAcceleration), steerBounds*(acceleration/targetAcceleration));
+                steerDir = Mathf.Clamp(Mathf.MoveTowards(steerDir, (steerBounds*(input.x-1.5f))/1.5f, Time.deltaTime*(smoothSteer*10)), -steerBounds*2*(acceleration/targetAcceleration), steerBounds*2*(acceleration/targetAcceleration));
             }
             else {drifting = false;}
         }
