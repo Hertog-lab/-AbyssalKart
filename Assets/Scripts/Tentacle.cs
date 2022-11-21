@@ -13,6 +13,20 @@ public class Tentacle : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        manager.GameOver();
+        Kart kart = other.GetComponent<Kart>();
+        if(kart.drifting == true)
+        {
+            DestroyTentacle();
+            Debug.LogError("DriftKill");
+        }
+        else
+        {
+            manager.GameOver();
+        }
+    }
+
+    private void DestroyTentacle()
+    {
+
     }
 }
