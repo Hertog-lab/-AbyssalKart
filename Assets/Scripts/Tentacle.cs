@@ -11,13 +11,13 @@ public class Tentacle : MonoBehaviour
         manager = FindObjectOfType<Manager>();
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other)
     {
-        Kart kart = other.GetComponent<Kart>();
+        Kart kart = other.gameObject.GetComponent<Kart>();
         if(kart.drifting == true)
         {
             DestroyTentacle();
-            Debug.LogError("DriftKill");
+            Debug.Log("DriftKill");
         }
         else
         {
