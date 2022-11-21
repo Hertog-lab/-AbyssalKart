@@ -22,10 +22,15 @@ public class Kart : MonoBehaviour
     public bool drifting;
     [Range(-1,1)] public int driftDirection; //-1 = left, 1 = right
     
+    [Header("Visuals")]
+    Transform kartmodel;
+    [SerializeField] float kartAngle;
+    public float kartAngleSmooth = 4;
+    
     // Start is called before the first frame update
     void Start()
     {
-        
+        kartmodel = transform.GetChild(0);
     }
 
     // Update is called once per frame
@@ -42,28 +47,26 @@ public class Kart : MonoBehaviour
 
             //Accelerate towards target acceleration.
             acceleration = Mathf.Clamp(Mathf.MoveTowards(acceleration, acceleration+passiveAcceleration, (Time.deltaTime*passiveAcceleration) * ((passiveAccelerate ? 1 : 0)+input.y)), -targetAcceleration, targetAcceleration);
-            accelerationBoost = Mathf.Clamp(Mathf.MoveTowards(accelerationBoost, 0, Time.deltaTime*passiveAcceleration*2), 0, Mathf.Infinity);
+            accelerationBoost = Mathf.Clamp(Mathf.MoveTowards(accelerationBoost, 0, Time.deltaTime*passiveAcceleration), 0, Mathf.Infinity);
 
             //Apply drifting
+            if (Input.GetKeyDown(KeyCode.Space) && (drifting != true))
+            {
+                if (steerDir > (steerBounds/2))
+                {
+                    driftDirection = -1;
+                    drifting = true;
+                }
+                if (steerDir < -(steerBounds/2))
+                {
+                    driftDirection = 1;
+                    drifting = true;
+                }
+            }
+            
             if (Input.GetKey(KeyCode.Space))
             {
-                if (drifting != true)
-                {
-                    if (steerDir > (steerBounds/2))
-                    {
-                        driftDirection = -1;
-                        drifting = true;
-                    }
-                    if (steerDir < -(steerBounds/2))
-                    {
-                        driftDirection = 1;
-                        drifting = true;
-                    }
-                }
-                else
-                {
-                    driftPower += Time.deltaTime*2;
-                }
+                driftPower += Time.deltaTime*2;
             }
             else
             {
@@ -75,6 +78,20 @@ public class Kart : MonoBehaviour
                     drifting = false;
                 }
             }
+            
+            //Rotate kart if drifting
+            if (drifting)
+            {
+                kartAngle = Mathf.Lerp(kartAngle, 
+                ((drifting) ? ((driftDirection == 1) ? (steerBounds*(input.x-1.5f))/1.5f : (steerBounds*(input.x+1.5f))/1.5f) : 0)*2, 
+                Time.deltaTime*kartAngleSmooth*(drifting ? 1 : 2));
+            }
+            else
+            {
+                kartAngle = Mathf.Lerp(kartAngle, 0, Time.deltaTime*kartAngleSmooth); 
+            }
+            
+            kartmodel.localEulerAngles = new Vector3(0,kartAngle,0);
 
             //Steering (clamped between steerBounds)
             if (drifting)
@@ -90,7 +107,6 @@ public class Kart : MonoBehaviour
                 else {drifting = false;}
             }
             else {
-
                 //Normal steering
                 steerDir = Mathf.Clamp(Mathf.MoveTowards(steerDir, steerBounds*input.x, Time.deltaTime*(smoothSteer*10)), -steerBounds*(acceleration/targetAcceleration), steerBounds*(acceleration/targetAcceleration));
             }
