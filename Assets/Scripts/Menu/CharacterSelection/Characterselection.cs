@@ -7,34 +7,20 @@ public class Characterselection : MonoBehaviour
     [SerializeField] private GameObject[] characters;
 
     private int currentCharacter;
+    private bool isSelectingCharacter;
+    private Manager manager;
 
     private void Start()
     {
-        for (int i = 0; i < characters.Length; i++)
-        {
-            characters[i].SetActive(false);
-        }
-
-        ChangeCharacter();
+        StopSelection();
+        manager = FindObjectOfType<Manager>();
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (isSelectingCharacter)
         {
-            if(currentCharacter > 0)
-            {
-                currentCharacter--;
-                ChangeCharacter();
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            if(currentCharacter < (characters.Length - 1))
-            {
-                currentCharacter++;
-                ChangeCharacter();
-            }
+            CheckInput();
         }
     }
 
@@ -44,6 +30,59 @@ public class Characterselection : MonoBehaviour
         {
             if(i == currentCharacter) characters[i].SetActive(true);
             else characters[i].SetActive(false);
+        }
+    }
+
+    private void CheckInput()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            if (currentCharacter > 0)
+            {
+                currentCharacter--;
+                ChangeCharacter();
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            if (currentCharacter < (characters.Length - 1))
+            {
+                currentCharacter++;
+                ChangeCharacter();
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space))
+        {
+            SelectCharacter();
+        }
+    }
+
+    private void SelectCharacter()
+    {
+        if(manager.characters.Length < currentCharacter)
+        {
+            return;
+        }
+        else
+        {
+            manager.StartGame(currentCharacter);
+            StopSelection();
+        }
+    }
+
+    public void StartSelection()
+    {
+        isSelectingCharacter = true;
+        ChangeCharacter();
+    }
+
+    public void StopSelection()
+    {
+        isSelectingCharacter = false;
+        for (int i = 0; i < characters.Length; i++)
+        {
+            characters[i].SetActive(false);
         }
     }
 }

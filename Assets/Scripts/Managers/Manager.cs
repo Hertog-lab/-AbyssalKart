@@ -10,6 +10,7 @@ public class Manager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI oldTimeText;
     [SerializeField] private GameObject gameOverMenu;
+    public GameObject[] characters;
 
     private Manager instance;
     private TimeManager timeManager;
@@ -25,6 +26,8 @@ public class Manager : MonoBehaviour
         scoreManager = FindObjectOfType<ScoreManager>();
         lapCount = 0;
         ChangeText();
+        timeManager.gameObject.SetActive(false);
+        scoreManager.gameObject.SetActive(false);
     }
 
     public void Update()
@@ -57,6 +60,11 @@ public class Manager : MonoBehaviour
         }
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+
+        for (int i = 0; i < characters.Length; i++)
+        {
+            characters[i].SetActive(false);
+        }
     }
 
     public void GameOver()
@@ -70,6 +78,15 @@ public class Manager : MonoBehaviour
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.SetActiveScene(scene);
     }
+
+    public void StartGame(int character)
+    {
+        characters[character].SetActive(true);
+        timeManager.gameObject.SetActive(true);
+        scoreManager.gameObject.SetActive(true);
+    }
+
+
 
     protected virtual void OnDisable()
     {
