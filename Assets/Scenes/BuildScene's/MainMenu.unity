@@ -270,6 +270,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 180510554}
+    - target: {fileID: 7416818751077513955, guid: 19a8b5605fe82d64caa910b04c86c80b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Creddits
+      objectReference: {fileID: 0}
     - target: {fileID: 7416818752045089014, guid: 19a8b5605fe82d64caa910b04c86c80b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
