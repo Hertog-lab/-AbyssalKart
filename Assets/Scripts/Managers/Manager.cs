@@ -10,6 +10,7 @@ public class Manager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI oldTimeText;
     [SerializeField] private GameObject gameOverMenu;
+    [SerializeField] private GameObject canvas;
     public GameObject[] characters;
 
     private Manager instance;
@@ -28,6 +29,7 @@ public class Manager : MonoBehaviour
         ChangeText();
         timeManager.gameObject.SetActive(false);
         scoreManager.gameObject.SetActive(false);
+        canvas.gameObject.SetActive(false);
     }
 
     public void Update()
@@ -84,6 +86,7 @@ public class Manager : MonoBehaviour
         characters[character].SetActive(true);
         timeManager.gameObject.SetActive(true);
         scoreManager.gameObject.SetActive(true);
+        canvas.gameObject.SetActive(true);
     }
 
 
