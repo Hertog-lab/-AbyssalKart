@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 1089470390}
   - component: {fileID: 1089470389}
   - component: {fileID: 1089470388}
-  - component: {fileID: 1089470387}
   m_Layer: 0
   m_Name: WheelBR
   m_TagString: Untagged
@@ -98,24 +97,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1089470387
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1089470386}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3515885bd28060e42a925231f3f2e4a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WheelFL: {fileID: 0}
-  WheelFR: {fileID: 0}
-  WheelBL: {fileID: 0}
-  WheelBR: {fileID: 0}
-  WheelTurnFL: {fileID: 0}
-  WheelTurnFR: {fileID: 0}
 --- !u!1 &1200961342
 GameObject:
   m_ObjectHideFlags: 0
@@ -225,7 +206,6 @@ GameObject:
   - component: {fileID: 1247365168}
   - component: {fileID: 1247365167}
   - component: {fileID: 1247365166}
-  - component: {fileID: 1247365165}
   m_Layer: 0
   m_Name: WheelFR
   m_TagString: Untagged
@@ -311,24 +291,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1247365165
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1247365164}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3515885bd28060e42a925231f3f2e4a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WheelFL: {fileID: 0}
-  WheelFR: {fileID: 0}
-  WheelBL: {fileID: 0}
-  WheelBR: {fileID: 0}
-  WheelTurnFL: {fileID: 0}
-  WheelTurnFR: {fileID: 0}
 --- !u!1 &1327992454
 GameObject:
   m_ObjectHideFlags: 0
@@ -635,7 +597,6 @@ GameObject:
   - component: {fileID: 1899648135}
   - component: {fileID: 1899648134}
   - component: {fileID: 1899648133}
-  - component: {fileID: 1899648132}
   m_Layer: 0
   m_Name: WheelBL
   m_TagString: Untagged
@@ -721,24 +682,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1899648132
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1899648130}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3515885bd28060e42a925231f3f2e4a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WheelFL: {fileID: 1200961342}
-  WheelFR: {fileID: 1247365164}
-  WheelBL: {fileID: 1899648130}
-  WheelBR: {fileID: 1089470386}
-  WheelTurnFL: {fileID: 0}
-  WheelTurnFR: {fileID: 0}
 --- !u!1 &2094035090
 GameObject:
   m_ObjectHideFlags: 0
