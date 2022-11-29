@@ -19,7 +19,7 @@ public class CameraAcceleration : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float camDist = Mathf.Lerp(dist.x, dist.y, speedcurve.Evaluate((Mathf.Clamp(kart.acceleration/curveRange, 0,1))));
+        float camDist = Mathf.Lerp(dist.x, dist.y, speedcurve.Evaluate((Mathf.Clamp(kart.p_acceleration/curveRange, 0,1))));
         camobj.localPosition = Vector3.Lerp(camobj.localPosition, new Vector3(0,0,-camDist), Time.deltaTime*camSmooth);
     }
 }

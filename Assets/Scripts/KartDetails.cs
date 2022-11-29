@@ -32,9 +32,9 @@ public class KartDetails : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (dodrifting != kart.drifting)
+        if (dodrifting != kart.p_drifting)
         {
-            dodrifting = kart.drifting;
+            dodrifting = kart.p_drifting;
         }
     }
 }
