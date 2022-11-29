@@ -1,119 +1,102 @@
+using System;
+using System.Threading;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Kart : MonoBehaviour
 {
-    public bool freeze = false;
-    public Vector2Int input = new Vector2Int();
+    [SerializeField] private float speedIncrease;
     
-    [Header("Linear movement")]
-    public float targetAcceleration = 10; //Update this every round
-    [SerializeField] private float passiveAcceleration = 0.5f; //Divided by deltatime
-    public float acceleration;
-    public float accelerationBoost;
-    public bool passiveAccelerate = true;
-    float driftPower = 0;
-    [Header("Angular movement")]
-    public float smoothSteer = 4;
-    public float steerBounds = 20;
-    public float steerDir;
-    [Space(4)]
-    public bool drifting;
-    [Range(-1,1)] public int driftDirection; //-1 = left, 1 = right
+    public float p_acceleration;
+    private Vector3 direction = new Vector3(0f,0f,1f);
+    private Vector3 acceleration;
+    //Drifting Relaited
+    [SerializeField] private float rotationStrenghtModifier;
+    public bool p_drifting = false;
+    private float minRotateStrenght = 2.5f; 
     
-    [Header("Visuals")]
-    Transform kartmodel;
-    [SerializeField] float kartAngle;
-    public float kartAngleSmooth = 4;
-    
-    // Start is called before the first frame update
-    void Start()
+    private void Update()
     {
-        kartmodel = transform.GetChild(0);
+        Input();
+        //Drifting(); Input runs here and gets direction from Input
+        MovementApplicance();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Input()
     {
-        if (!freeze) {
-            input = new Vector2Int(
-            ((Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D)) ? 0 : 
-                ((Input.GetKey(KeyCode.A)) ? -1 : 
-                ((Input.GetKey(KeyCode.D)) ? 1 : 0))), 
-            //If both are pressed, do nothing. If left is held, input.x is -1, if right is held input.x is 1.
-            ((Input.GetKey(KeyCode.W)) ? 1 : 0));
-            //If up is held, input.y is 1. No brakes :)
-
-            //Accelerate towards target acceleration.
-            acceleration = Mathf.Clamp(Mathf.MoveTowards(acceleration, acceleration+passiveAcceleration, (Time.deltaTime*passiveAcceleration) * ((passiveAccelerate ? 1 : 0)+input.y)), -targetAcceleration, targetAcceleration);
-            accelerationBoost = Mathf.Clamp(Mathf.MoveTowards(accelerationBoost, 0, Time.deltaTime*passiveAcceleration), 0, Mathf.Infinity);
-
-            //Apply drifting
-            if (Input.GetKeyDown(KeyCode.Space) && (drifting != true))
-            {
-                if (steerDir > (steerBounds/2))
-                {
-                    driftDirection = -1;
-                    drifting = true;
-                }
-                if (steerDir < -(steerBounds/2))
-                {
-                    driftDirection = 1;
-                    drifting = true;
-                }
-            }
-            
-            if (Input.GetKey(KeyCode.Space))
-            {
-                driftPower += Time.deltaTime*2;
-            }
-            else
-            {
-                if (drifting == true)
-                {
-                    accelerationBoost += Mathf.Clamp(driftPower, 0, targetAcceleration*2);
-                    driftDirection = 0;
-                    driftPower = 0;
-                    drifting = false;
-                }
-            }
-            
-            //Rotate kart if drifting
-            if (drifting)
-            {
-                kartAngle = Mathf.Lerp(kartAngle, 
-                ((drifting) ? ((driftDirection == 1) ? (steerBounds*(input.x-1.5f))/1.5f : (steerBounds*(input.x+1.5f))/1.5f) : 0)*2, 
-                Time.deltaTime*kartAngleSmooth*(drifting ? 1 : 2));
-            }
-            else
-            {
-                kartAngle = Mathf.Lerp(kartAngle, 0, Time.deltaTime*kartAngleSmooth); 
-            }
-            
-            kartmodel.localEulerAngles = new Vector3(0,kartAngle,0);
-
-            //Steering (clamped between steerBounds)
-            if (drifting)
-            {
-                if (driftDirection == -1) {   
-                    //Drifting to the left
-                    steerDir = Mathf.Clamp(Mathf.MoveTowards(steerDir, (steerBounds*(input.x+1.5f))/1.5f, Time.deltaTime*(smoothSteer*10)), -steerBounds*2*(acceleration/targetAcceleration), steerBounds*2*(acceleration/targetAcceleration));
-                }
-                else if (driftDirection == 1) {
-                    //Drifting to the right
-                    steerDir = Mathf.Clamp(Mathf.MoveTowards(steerDir, (steerBounds*(input.x-1.5f))/1.5f, Time.deltaTime*(smoothSteer*10)), -steerBounds*2*(acceleration/targetAcceleration), steerBounds*2*(acceleration/targetAcceleration));
-                }
-                else {drifting = false;}
-            }
-            else {
-                //Normal steering
-                steerDir = Mathf.Clamp(Mathf.MoveTowards(steerDir, steerBounds*input.x, Time.deltaTime*(smoothSteer*10)), -steerBounds*(acceleration/targetAcceleration), steerBounds*(acceleration/targetAcceleration));
-            }
-
-            //Apply acceleration & steering
-            transform.position += transform.forward * (acceleration+accelerationBoost) * Time.deltaTime;
-            transform.Rotate(0, Time.deltaTime*(steerDir*10) ,0);
+        if (UnityEngine.Input.GetKey(KeyCode.W) == true)
+        {
+            if (direction.x > direction.z)
+            { direction.x += speedIncrease * Time.deltaTime; } 
+            else if (direction.x < direction.z) 
+            { direction.z += speedIncrease * Time.deltaTime; }
         }
+        if      (UnityEngine.Input.GetAxisRaw("Horizontal") > 0) {Drifting(false); p_drifting = true;}
+        else if (UnityEngine.Input.GetAxisRaw("Horizontal") < 0) {Drifting(true ); p_drifting = true;}
+        else    {rotationStrenghtModifier = minRotateStrenght;  p_drifting = false;}
     }
+
+    private void Drifting(bool left)
+    {
+        minRotateStrenght = 2.5f * (acceleration.magnitude * 0.10f);
+        rotationStrenghtModifier = Mathf.Clamp(rotationStrenghtModifier += rotationStrenghtModifier * Time.deltaTime,minRotateStrenght,10f);
+        direction = (left == false) 
+            ? direction = new Vector3(direction.x += direction.z * rotationStrenghtModifier * Time.deltaTime, direction.y,direction.z -= direction.x * rotationStrenghtModifier * Time.deltaTime) 
+            : direction = new Vector3(direction.x -= direction.z * rotationStrenghtModifier * Time.deltaTime, direction.y,direction.z += direction.x * rotationStrenghtModifier * Time.deltaTime);
+    }
+    
+    private void MovementApplicance()
+    {
+        acceleration = direction;
+        p_acceleration = acceleration.magnitude;
+        transform.position += acceleration * Time.deltaTime;
+    }
+    
+    /*
+    public float p_acceleration;
+    public bool p_drifting = false;
+    [SerializeField] private float speedIncreaseAmount = 0f;
+    [SerializeField] private float driftSmoothing = 0f;
+    private Vector3 currentDirection;
+    private Vector3 targetDirection;
+    private float inertiaModifier;
+    private Rigidbody rbody;
+    private Vector3 oldPosition;
+    private Vector3 storedInput;
+    
+    private void Start()
+    {
+        rbody = GetComponent<Rigidbody>();
+        inertiaModifier = 0f;
+        p_acceleration = 0f;
+    }
+    private void DriftingMode(bool left)
+    {
+        p_drifting = true;
+        Vector3 direction = (left == true) ? Vector3.left : Vector3.right;
+        targetDirection += direction * (speedIncreaseAmount * Time.deltaTime);
+    }
+
+    private void SpeedAppliance()
+    {
+        storedInput = new Vector3(storedInput.x * speedIncreaseAmount, storedInput.y * speedIncreaseAmount, storedInput.z * speedIncreaseAmount);
+        oldPosition = transform.position;
+        currentDirection = storedInput * (speedIncreaseAmount * Time.deltaTime);
+        storedInput = Vector3.zero;
+        p_acceleration = Vector3.Distance(oldPosition, transform.position);
+        transform.position += currentDirection + targetDirection;
+    }
+
+    private void Update()
+    {
+        float    inputFB =       Input.GetAxisRaw("Vertical");
+        float    inputLR =       Input.GetAxisRaw("Horizontal");
+        if      (inputFB >  0) { storedInput = Vector3.forward; }
+        if      (inputLR <  0) { DriftingMode(true ); }
+        else if (inputLR >  0) { DriftingMode(false); }
+        else if (inputLR == 0) { p_drifting = false; }
+        SpeedAppliance();
+    }*/
 }

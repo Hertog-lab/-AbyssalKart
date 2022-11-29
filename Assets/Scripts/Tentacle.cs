@@ -14,7 +14,7 @@ public class Tentacle : MonoBehaviour
     private void OnCollisionEnter(Collision other)
     {
         Kart kart = other.gameObject.GetComponent<Kart>();
-        if(kart.drifting == true)
+        if(kart.p_drifting == true)
         {
             DestroyTentacle();
             Debug.Log("DriftKill");

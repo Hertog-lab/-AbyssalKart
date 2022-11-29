@@ -272,9 +272,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1388430300873739755}
   - component: {fileID: 1388430300873739759}
-  - component: {fileID: 2821029486898479806}
   - component: {fileID: 751401145}
   - component: {fileID: 974639965}
+  - component: {fileID: 2967487486349545711}
   m_Layer: 0
   m_Name: PlayerKart
   m_TagString: Untagged
@@ -312,33 +312,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c94dd43d1aa2fb540908ee0ac26aa9e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  freeze: 0
-  input: {x: 0, y: 0}
-  targetAcceleration: 15
-  passiveAcceleration: 2
-  acceleration: 0
-  accelerationBoost: 0
-  passiveAccelerate: 1
-  smoothSteer: 28
-  steerBounds: 12
-  steerDir: 0
-  drifting: 0
-  driftDirection: 0
-  kartAngle: 0
-  kartAngleSmooth: 4
---- !u!135 &2821029486898479806
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1388430300873739758}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  p_acceleration: 0
+  p_drifting: 0
+  speedIncreaseAmount: 5
 --- !u!114 &751401145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -366,12 +342,25 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 116
   m_CollisionDetection: 0
+--- !u!65 &2967487486349545711
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1388430300873739758}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5000079700015105059
 GameObject:
   m_ObjectHideFlags: 0
