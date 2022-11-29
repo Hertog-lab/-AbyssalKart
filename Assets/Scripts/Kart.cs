@@ -51,7 +51,8 @@ public class Kart : MonoBehaviour
     {
         acceleration = direction;
         p_acceleration = acceleration.magnitude;
-        
+        float x = transform.rotation.x;
+        transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
         transform.position += acceleration * Time.deltaTime;
     }
 }
