@@ -28,18 +28,18 @@ public class KartAnimation : MonoBehaviour
 
         if(Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
-            WheelTurnFL.transform.rotation = Quaternion.Euler(0, -30, 0);
-            WheelTurnFR.transform.rotation = Quaternion.Euler(0, -30, 0);
+            WheelTurnFL.transform.localRotation = Quaternion.Euler(0, -30, 0);
+            WheelTurnFR.transform.localRotation = Quaternion.Euler(0, -30, 0);
         }
         else if(Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
         {
-            WheelTurnFL.transform.rotation = Quaternion.Euler(0, 30, 0);
-            WheelTurnFR.transform.rotation = Quaternion.Euler(0, 30, 0);
+            WheelTurnFL.transform.localRotation = Quaternion.Euler(0, 30, 0);
+            WheelTurnFR.transform.localRotation = Quaternion.Euler(0, 30, 0);
         }
         else
         {
-            WheelTurnFL.transform.rotation = Quaternion.Euler(0, 0, 0);
-            WheelTurnFR.transform.rotation = Quaternion.Euler(0, 0, 0);
+            WheelTurnFL.transform.localRotation = Quaternion.Euler(0, 0, 0);
+            WheelTurnFR.transform.localRotation = Quaternion.Euler(0, 0, 0);
         }
     }
 }
