@@ -33,8 +33,12 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _AltTex:
+        m_Texture: {fileID: 2800000, guid: 46b6722bc72f1494d805506e91379243, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BaseTex:
-        m_Texture: {fileID: 10309, guid: 0000000000000000f000000000000000, type: 0}
+        m_Texture: {fileID: 2800000, guid: 46b6722bc72f1494d805506e91379243, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -51,13 +55,15 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _QueueControl: 0
+    - _QueueControl: 1
     - _QueueOffset: 0
+    - _alternateIntensity: 0.5
     - _displace: 1
     m_Colors:
+    - _BaseColor: {r: 0.41628695, g: 0.64743894, b: 0.8584906, a: 0.29803923}
     - _DisplaceScroll: {r: 0.01, g: 0.01, b: 0, a: 0}
-    - _Outline_Color: {r: 1, g: 1, b: 1, a: 0}
-    - _Scroll: {r: 0.001, g: 0.001, b: 0, a: 0}
+    - _Outline_Color: {r: 0, g: 0.97377676, b: 0.990566, a: 0}
+    - _Scroll: {r: 0.001, g: 0.001, b: 0.002, a: 0.002}
     - _Tiling: {r: 10, g: 10, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &2736792017692169801
