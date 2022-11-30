@@ -60,7 +60,7 @@ Material:
     - _alternateIntensity: 0.5
     - _displace: 1
     m_Colors:
-    - _BaseColor: {r: 0.41628695, g: 0.64743894, b: 0.8584906, a: 0.29803923}
+    - _BaseColor: {r: 0.29615515, g: 0.5610499, b: 0.8867924, a: 0.47493336}
     - _DisplaceScroll: {r: 0.01, g: 0.01, b: 0, a: 0}
     - _Outline_Color: {r: 0, g: 0.97377676, b: 0.990566, a: 0}
     - _Scroll: {r: 0.001, g: 0.001, b: 0.002, a: 0.002}
