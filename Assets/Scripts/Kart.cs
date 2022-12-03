@@ -62,4 +62,16 @@ public class Kart : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
         transform.position += acceleration * Time.deltaTime;
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.GetComponent<Wall>() == true)
+        {
+            float x = Mathf.Abs(direction.x);
+            float z = Mathf.Abs(direction.z);
+
+            if (x < z)  { direction.x = -direction.x; }
+            if (z < x)  { direction.z = -direction.z; }
+        }
+    }
 }
