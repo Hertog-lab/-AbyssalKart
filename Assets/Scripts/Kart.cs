@@ -10,13 +10,14 @@ public class Kart : MonoBehaviour
     [SerializeField] private float speedIncrease;
     
     public float p_acceleration;
-    private Vector3 direction = new Vector3(0f,0f,1f);
+    public Vector3 direction = new Vector3(0f,0f,1f);
     private Vector3 acceleration;
+    private Vector3 oldDirection;
     //Drifting Relaited
     [SerializeField] private float rotationStrenghtModifier;
     public bool p_drifting = false;
-    private float minRotateStrenght = 2.5f; 
-    
+    private float minRotateStrenght = 3;
+
     private void Update()
     {
         Input();
@@ -26,77 +27,51 @@ public class Kart : MonoBehaviour
 
     private void Input()
     {
-        if (UnityEngine.Input.GetKey(KeyCode.W) == true)
+        if (UnityEngine.Input.GetAxisRaw("Vertical") > 0f)
         {
-            if (direction.x > direction.z)
-            { direction.x += speedIncrease * Time.deltaTime; } 
-            else if (direction.x < direction.z) 
-            { direction.z += speedIncrease * Time.deltaTime; }
+            direction.x += direction.x * speedIncrease * 0.1f * Time.deltaTime;
+            direction.z += direction.z * speedIncrease * 0.1f * Time.deltaTime;
         }
-        if      (UnityEngine.Input.GetAxisRaw("Horizontal") > 0) {Drifting(false); p_drifting = true;}
-        else if (UnityEngine.Input.GetAxisRaw("Horizontal") < 0) {Drifting(true ); p_drifting = true;}
-        else    {rotationStrenghtModifier = minRotateStrenght;  p_drifting = false;}
+        if      (UnityEngine.Input.GetAxisRaw("Horizontal") > 0f) {Drifting(false); p_drifting = true;}
+        else if (UnityEngine.Input.GetAxisRaw("Horizontal") < 0f) {Drifting(true ); p_drifting = true;}
+        else    
+        {
+            rotationStrenghtModifier = minRotateStrenght;
+            p_drifting = false;
+        }
     }
 
     private void Drifting(bool left)
     {
-        minRotateStrenght = 2.5f * (acceleration.magnitude * 0.10f);
+        float driftStrength = (p_acceleration < 5f) ? (direction.x + direction.z) * 7.5f : 0f;
         rotationStrenghtModifier = Mathf.Clamp(rotationStrenghtModifier += rotationStrenghtModifier * Time.deltaTime,minRotateStrenght,10f);
         direction = (left == false) 
-            ? direction = new Vector3(direction.x += direction.z * rotationStrenghtModifier * Time.deltaTime, direction.y,direction.z -= direction.x * rotationStrenghtModifier * Time.deltaTime) 
-            : direction = new Vector3(direction.x -= direction.z * rotationStrenghtModifier * Time.deltaTime, direction.y,direction.z += direction.x * rotationStrenghtModifier * Time.deltaTime);
+            ? direction = new Vector3(direction.x += driftStrength + (direction.z * rotationStrenghtModifier) * Time.deltaTime, direction.y,direction.z -= (direction.x * rotationStrenghtModifier) * Time.deltaTime) 
+            : direction = new Vector3(direction.x -= driftStrength + (direction.z * rotationStrenghtModifier) * Time.deltaTime, direction.y,direction.z += (direction.x * rotationStrenghtModifier) * Time.deltaTime);
+        direction = (left == false) 
+            ? direction = new Vector3(direction.x -= oldDirection.z * Time.deltaTime, direction.y,direction.z += oldDirection.x * Time.deltaTime) 
+            : direction = new Vector3(direction.x += oldDirection.z * Time.deltaTime, direction.y,direction.z -= oldDirection.x * Time.deltaTime);
+
     }
     
     private void MovementApplicance()
     {
         acceleration = direction;
         p_acceleration = acceleration.magnitude;
+        oldDirection = direction;
+        transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
         transform.position += acceleration * Time.deltaTime;
     }
-    
-    /*
-    public float p_acceleration;
-    public bool p_drifting = false;
-    [SerializeField] private float speedIncreaseAmount = 0f;
-    [SerializeField] private float driftSmoothing = 0f;
-    private Vector3 currentDirection;
-    private Vector3 targetDirection;
-    private float inertiaModifier;
-    private Rigidbody rbody;
-    private Vector3 oldPosition;
-    private Vector3 storedInput;
-    
-    private void Start()
-    {
-        rbody = GetComponent<Rigidbody>();
-        inertiaModifier = 0f;
-        p_acceleration = 0f;
-    }
-    private void DriftingMode(bool left)
-    {
-        p_drifting = true;
-        Vector3 direction = (left == true) ? Vector3.left : Vector3.right;
-        targetDirection += direction * (speedIncreaseAmount * Time.deltaTime);
-    }
 
-    private void SpeedAppliance()
+    private void OnCollisionEnter(Collision collision)
     {
-        storedInput = new Vector3(storedInput.x * speedIncreaseAmount, storedInput.y * speedIncreaseAmount, storedInput.z * speedIncreaseAmount);
-        oldPosition = transform.position;
-        currentDirection = storedInput * (speedIncreaseAmount * Time.deltaTime);
-        storedInput = Vector3.zero;
-        p_acceleration = Vector3.Distance(oldPosition, transform.position);
-        transform.position += currentDirection + targetDirection;
-    }
+        if (collision.transform.GetComponent<Wall>() == true)
+        {
+            float x = Mathf.Abs(direction.x);
+            float z = Mathf.Abs(direction.z);
 
-    private void Update()
-    {
-        float    inputFB =       Input.GetAxisRaw("Vertical");
-        float    inputLR =       Input.GetAxisRaw("Horizontal");
-        if      (inputFB >  0) { storedInput = Vector3.forward; }
-        if      (inputLR <  0) { DriftingMode(true ); }
-        else if (inputLR >  0) { DriftingMode(false); }
-        else if (inputLR == 0) { p_drifting = false; }
-        SpeedAppliance();
-    }*/
+            if (x < z)  { direction.x = -direction.x; }
+            if (z < x)  { direction.z = -direction.z; }
+        }
+    }
 }
