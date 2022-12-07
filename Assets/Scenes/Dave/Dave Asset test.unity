@@ -6788,6 +6788,14 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 600852854}
+    - target: {fileID: 3477444063457021507, guid: 28d359c704a44444484c18f452fd4d6a, type: 3}
+      propertyPath: anticipateAmount
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3477444063457021507, guid: 28d359c704a44444484c18f452fd4d6a, type: 3}
+      propertyPath: anticipateMovement
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4817060436437135616, guid: 28d359c704a44444484c18f452fd4d6a, type: 3}
       propertyPath: m_RenderPostProcessing
       value: 1

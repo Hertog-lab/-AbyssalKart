@@ -27,7 +27,9 @@ public class TrackCorruption : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        bool terrainIsCorrupted = false;
+        bool wasTerrainCorrupted = false;
+        staticTime = -1;
     }   
 
     // Update is called once per frame
@@ -37,7 +39,7 @@ public class TrackCorruption : MonoBehaviour
         
         //Static overlay when corrupting the environment
         staticOverlay.SetActive(staticActive);
-        staticOverlay.GetComponent<RectTransform>().sizeDelta = new Vector2(((Random.value < 0.5f) ? -1 : 1), ((Random.value < 0.5f) ? -1 : 1));
+        staticOverlay.transform.localScale = new Vector2(((Random.value < 0.5f) ? -1 : 1), ((Random.value < 0.5f) ? -1 : 1));
         
         staticActive = (((staticTime < staticDuration) && (staticTime > -1f)) || (forceStatic));
         
@@ -55,7 +57,7 @@ public class TrackCorruption : MonoBehaviour
         }
         else
         {
-            staticActive = false;
+            //staticActive = false;
         }
         
         o_water.GetComponent<MeshRenderer>().material.SetColor("_BaseColor", waterGradient.Evaluate(waterCorruption));

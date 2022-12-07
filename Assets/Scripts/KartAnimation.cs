@@ -26,12 +26,12 @@ public class KartAnimation : MonoBehaviour
         WheelBL.transform.Rotate(Vector3.right, kart.p_acceleration * Time.deltaTime * 1000);
         WheelBR.transform.Rotate(Vector3.right, kart.p_acceleration * Time.deltaTime * 1000);
 
-        if(Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
+        if (Input.GetAxisRaw("Horizontal") < 0)
         {
             WheelTurnFL.transform.localRotation = Quaternion.Euler(0, -30, 0);
             WheelTurnFR.transform.localRotation = Quaternion.Euler(0, -30, 0);
         }
-        else if(Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+        else if(Input.GetAxisRaw("Horizontal") > 0)
         {
             WheelTurnFL.transform.localRotation = Quaternion.Euler(0, 30, 0);
             WheelTurnFR.transform.localRotation = Quaternion.Euler(0, 30, 0);
