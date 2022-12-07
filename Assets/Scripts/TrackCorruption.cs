@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TrackCorruption : MonoBehaviour
 {
@@ -14,21 +15,26 @@ public class TrackCorruption : MonoBehaviour
     [SerializeField] private Gradient waterGradient;
     
     [Header("TERRAIN")]
-    [SerializeField] private GameObject staticOverlay;
+    [SerializeField] private Image staticOverlay;
     [SerializeField] private bool staticActive;
     public bool terrainIsCorrupted = false;
     private bool wasTerrainCorrupted = false;
+    [Space(5)]
+    [SerializeField] private GameObject corruptedTerrain;
     
     [Header("STATIC")]
     public bool forceStatic = false;
     [SerializeField] private float staticDuration = 0.1f;
     private float staticTime = 0;
+    [Range(0,1)]
+    [SerializeField] private float staticPassive = 0f;
     
     // Start is called before the first frame update
     void Start()
     {
         bool terrainIsCorrupted = false;
         bool wasTerrainCorrupted = false;
+        corruptedTerrain.SetActive(terrainIsCorrupted);
         staticTime = -1;
     }   
 
@@ -38,7 +44,12 @@ public class TrackCorruption : MonoBehaviour
         corruption += (Time.deltaTime*corruptionRate);
         
         //Static overlay when corrupting the environment
-        staticOverlay.SetActive(staticActive);
+        
+        
+        Color staticCol = Color.white;
+        staticCol.a = (staticActive) ? 1f : ((terrainIsCorrupted) ? 0.05f : staticPassive);
+        staticOverlay.color = staticCol;
+        
         staticOverlay.transform.localScale = new Vector2(((Random.value < 0.5f) ? -1 : 1), ((Random.value < 0.5f) ? -1 : 1));
         
         staticActive = (((staticTime < staticDuration) && (staticTime > -1f)) || (forceStatic));
@@ -66,6 +77,7 @@ public class TrackCorruption : MonoBehaviour
         {
             //static engaged
             staticTime = 0f;
+            corruptedTerrain.SetActive(terrainIsCorrupted);
         }
         wasTerrainCorrupted = terrainIsCorrupted;
     }
