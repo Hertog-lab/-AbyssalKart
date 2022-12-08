@@ -51,7 +51,7 @@ public class TrackCorruption : MonoBehaviour
         
         Color staticCol = Color.white;
         staticCol.a = (staticActive) ? 1f : ((corruptionPhase > 0) ? staticPassive : 0);
-        staticSnd.volume = (staticActive) ? 1f : ((corruptionPhase > 0) ? 0.25f : 0);
+        staticSnd.volume = (staticActive) ? 1f : ((corruptionPhase > 0) ? 0.05f : 0);
         staticOverlay.color = staticCol;
         
         staticOverlay.transform.localScale = new Vector2(((Random.value < 0.5f) ? -1 : 1), ((Random.value < 0.5f) ? -1 : 1));
