@@ -32,6 +32,7 @@ public class TrackCorruption : MonoBehaviour
     [SerializeField] private float staticPassive = 0f;
     [Space(5)]
     [SerializeField] private Volume ppvol;
+    [SerializeField] private AudioSource staticSnd;
     
     // Start is called before the first frame update
     void Start()
@@ -50,6 +51,7 @@ public class TrackCorruption : MonoBehaviour
         
         Color staticCol = Color.white;
         staticCol.a = (staticActive) ? 1f : ((corruptionPhase > 0) ? staticPassive : 0);
+        staticSnd.volume = (staticActive) ? 1f : ((corruptionPhase > 0) ? 0.25f : 0);
         staticOverlay.color = staticCol;
         
         staticOverlay.transform.localScale = new Vector2(((Random.value < 0.5f) ? -1 : 1), ((Random.value < 0.5f) ? -1 : 1));
@@ -86,8 +88,9 @@ public class TrackCorruption : MonoBehaviour
     
     public void ToggleCorruptionObjects()
     {
-        waterCorruption = ((corruptionPhase > 0) ? 1 : 0);
+        waterCorruption = ((corruptionPhase > 0) ? ((corruptionPhase > 1) ? 1 : 0.5f) : 0);
         ppvol.weight = ((corruptionPhase > 0) ? ((corruptionPhase > 1) ? ((corruptionPhase > 0) ? 1 : 0.5f) : 0.25f) : 0);
+        
         foreach (GameObject cor1 in corruptedTerrain1)
         {
             cor1.SetActive(corruptionPhase > 0);
@@ -96,9 +99,31 @@ public class TrackCorruption : MonoBehaviour
         {
             cor2.SetActive(corruptionPhase > 1);
         }
-        foreach (GameObject cor3 in corruptedTerrain2)
+        foreach (GameObject cor3 in corruptedTerrain3)
         {
             cor3.SetActive(corruptionPhase > 2);
+        }
+    }
+    
+    public void PlaySoundRelativeTo(Transform par, Vector3 pos, AudioClip clip, float pitch, float volume)
+    {
+        if (clip != null)
+        {
+            AudioSource go = new GameObject().AddComponent<AudioSource>();
+            go.transform.parent = par;
+            go.transform.localPosition = pos;
+            go.name = clip.name;
+
+            go.clip = clip;
+            go.pitch = pitch;
+            go.volume = volume;
+
+            go.Play();
+            Destroy(go.gameObject, clip.length*pitch);
+        }
+        else
+        {
+            Debug.LogWarning("Tried to call PlaySoundRelativeTo with a null Audio clip!");
         }
     }
 }
