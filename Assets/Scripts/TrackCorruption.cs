@@ -20,7 +20,7 @@ public class TrackCorruption : MonoBehaviour
     public bool terrainIsCorrupted = false;
     private bool wasTerrainCorrupted = false;
     [Space(5)]
-    [SerializeField] private GameObject corruptedTerrain;
+    [SerializeField] private GameObject[] corruptedTerrain;
     
     [Header("STATIC")]
     public bool forceStatic = false;
@@ -34,7 +34,10 @@ public class TrackCorruption : MonoBehaviour
     {
         bool terrainIsCorrupted = false;
         bool wasTerrainCorrupted = false;
-        corruptedTerrain.SetActive(terrainIsCorrupted);
+        foreach (GameObject cor in corruptedTerrain)
+        {
+            cor.SetActive(terrainIsCorrupted);
+        }
         staticTime = -1;
     }   
 
@@ -47,7 +50,7 @@ public class TrackCorruption : MonoBehaviour
         
         
         Color staticCol = Color.white;
-        staticCol.a = (staticActive) ? 1f : ((terrainIsCorrupted) ? 0.05f : staticPassive);
+        staticCol.a = (staticActive) ? 1f : ((terrainIsCorrupted) ? staticPassive : 0);
         staticOverlay.color = staticCol;
         
         staticOverlay.transform.localScale = new Vector2(((Random.value < 0.5f) ? -1 : 1), ((Random.value < 0.5f) ? -1 : 1));
@@ -77,7 +80,10 @@ public class TrackCorruption : MonoBehaviour
         {
             //static engaged
             staticTime = 0f;
-            corruptedTerrain.SetActive(terrainIsCorrupted);
+            foreach (GameObject cor in corruptedTerrain)
+            {
+                cor.SetActive(terrainIsCorrupted);
+            }
         }
         wasTerrainCorrupted = terrainIsCorrupted;
     }
