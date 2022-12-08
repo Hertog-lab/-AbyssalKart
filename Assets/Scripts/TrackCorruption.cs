@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class TrackCorruption : MonoBehaviour
 {
     public float corruption;
     public float corruptionRate;
+    
+    public int corruptionPhase;
+    private int prev_corruptionPhase;
     
     [Header("WATER")]
     public GameObject o_water;
@@ -17,10 +21,8 @@ public class TrackCorruption : MonoBehaviour
     [Header("TERRAIN")]
     [SerializeField] private Image staticOverlay;
     [SerializeField] private bool staticActive;
-    public bool terrainIsCorrupted = false;
-    private bool wasTerrainCorrupted = false;
     [Space(5)]
-    [SerializeField] private GameObject[] corruptedTerrain;
+    [SerializeField] private GameObject[] corruptedTerrain1, corruptedTerrain2, corruptedTerrain3;
     
     [Header("STATIC")]
     public bool forceStatic = false;
@@ -28,16 +30,13 @@ public class TrackCorruption : MonoBehaviour
     private float staticTime = 0;
     [Range(0,1)]
     [SerializeField] private float staticPassive = 0f;
+    [Space(5)]
+    [SerializeField] private Volume ppvol;
     
     // Start is called before the first frame update
     void Start()
     {
-        bool terrainIsCorrupted = false;
-        bool wasTerrainCorrupted = false;
-        foreach (GameObject cor in corruptedTerrain)
-        {
-            cor.SetActive(terrainIsCorrupted);
-        }
+        ToggleCorruptionObjects();
         staticTime = -1;
     }   
 
@@ -50,7 +49,7 @@ public class TrackCorruption : MonoBehaviour
         
         
         Color staticCol = Color.white;
-        staticCol.a = (staticActive) ? 1f : ((terrainIsCorrupted) ? staticPassive : 0);
+        staticCol.a = (staticActive) ? 1f : ((corruptionPhase > 0) ? staticPassive : 0);
         staticOverlay.color = staticCol;
         
         staticOverlay.transform.localScale = new Vector2(((Random.value < 0.5f) ? -1 : 1), ((Random.value < 0.5f) ? -1 : 1));
@@ -76,15 +75,30 @@ public class TrackCorruption : MonoBehaviour
         
         o_water.GetComponent<MeshRenderer>().material.SetColor("_BaseColor", waterGradient.Evaluate(waterCorruption));
         
-        if (terrainIsCorrupted != wasTerrainCorrupted)
+        if (corruptionPhase != prev_corruptionPhase)
         {
             //static engaged
             staticTime = 0f;
-            foreach (GameObject cor in corruptedTerrain)
-            {
-                cor.SetActive(terrainIsCorrupted);
-            }
+            ToggleCorruptionObjects();
         }
-        wasTerrainCorrupted = terrainIsCorrupted;
+        prev_corruptionPhase = corruptionPhase;
+    }
+    
+    public void ToggleCorruptionObjects()
+    {
+        waterCorruption = ((corruptionPhase > 0) ? 1 : 0);
+        ppvol.weight = ((corruptionPhase > 0) ? ((corruptionPhase > 1) ? ((corruptionPhase > 0) ? 1 : 0.5f) : 0.25f) : 0);
+        foreach (GameObject cor1 in corruptedTerrain1)
+        {
+            cor1.SetActive(corruptionPhase > 0);
+        }
+        foreach (GameObject cor2 in corruptedTerrain2)
+        {
+            cor2.SetActive(corruptionPhase > 1);
+        }
+        foreach (GameObject cor3 in corruptedTerrain2)
+        {
+            cor3.SetActive(corruptionPhase > 2);
+        }
     }
 }
