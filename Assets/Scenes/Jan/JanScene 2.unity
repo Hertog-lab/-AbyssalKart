@@ -7181,8 +7181,10 @@ MonoBehaviour:
   speedIncrease: 1
   p_acceleration: 0
   direction: {x: 0, y: 0, z: 5.1}
-  rotationStrenghtModifier: 0
+  rotationStrenghtModifier: 3
   p_drifting: 0
+  camera1: {fileID: 3477444064059348413}
+  camera2: {fileID: 1708723423}
 --- !u!4 &2915806198814267438
 Transform:
   m_ObjectHideFlags: 0
@@ -7280,6 +7282,11 @@ PrefabInstance:
       objectReference: {fileID: 1388430300640737707}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28d359c704a44444484c18f452fd4d6a, type: 3}
+--- !u!1 &3477444064059348413 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3477444063457021506, guid: 28d359c704a44444484c18f452fd4d6a, type: 3}
+  m_PrefabInstance: {fileID: 3477444064059348412}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3922624372009503732
 PrefabInstance:
   m_ObjectHideFlags: 0
