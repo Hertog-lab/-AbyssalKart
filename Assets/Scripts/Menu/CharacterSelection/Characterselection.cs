@@ -5,15 +5,16 @@ using UnityEngine;
 public class Characterselection : MonoBehaviour
 {
     [SerializeField] private GameObject[] characters;
+    [SerializeField] private bool isSelectingCharacter = true;
 
     private int currentCharacter;
-    private bool isSelectingCharacter;
     private Manager manager;
 
     private void Start()
     {
         StopSelection();
         manager = FindObjectOfType<Manager>();
+        StartSelection();
     }
 
     private void Update()

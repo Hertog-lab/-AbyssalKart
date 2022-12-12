@@ -82,6 +82,7 @@ public class Kart : MonoBehaviour
         if (collision.transform.GetComponent<Wall>() == true)
         {
             direction = Vector3.Reflect(direction, collision.GetContact(0).normal);
+            direction += direction * (speedIncrease * Time.deltaTime);
             /*
             float x = Mathf.Abs(direction.x);
             float z = Mathf.Abs(direction.z);
