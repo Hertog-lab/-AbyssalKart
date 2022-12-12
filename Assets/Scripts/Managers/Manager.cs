@@ -27,9 +27,9 @@ public class Manager : MonoBehaviour
         scoreManager = FindObjectOfType<ScoreManager>();
         lapCount = 0;
         ChangeText();
-        timeManager.gameObject.SetActive(false);
-        scoreManager.gameObject.SetActive(false);
-        canvas.gameObject.SetActive(false);
+        timeManager.gameObject.SetActive(true);
+        scoreManager.gameObject.SetActive(true);
+        canvas.gameObject.SetActive(true);
     }
 
     public void Update()
