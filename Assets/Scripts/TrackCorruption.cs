@@ -32,7 +32,7 @@ public class TrackCorruption : MonoBehaviour
     [SerializeField] private float staticPassive = 0f;
     [Space(5)]
     [SerializeField] private Volume ppvol;
-    [SerializeField] private AudioSource staticSnd;
+    [SerializeField] private AudioSource staticSnd, whisperSnd;
     
     // Start is called before the first frame update
     void Start()

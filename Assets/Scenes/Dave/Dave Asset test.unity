@@ -8265,7 +8265,7 @@ MonoBehaviour:
   staticDuration: 0.1
   staticPassive: 0.02
   ppvol: {fileID: 908523201}
-  staticSnd: {fileID: 0}
+  staticSnd: {fileID: 908523205}
 --- !u!1 &830009060
 GameObject:
   m_ObjectHideFlags: 0
