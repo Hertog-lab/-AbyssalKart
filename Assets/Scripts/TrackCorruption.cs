@@ -12,6 +12,14 @@ public class TrackCorruption : MonoBehaviour
     public int corruptionPhase;
     private int prev_corruptionPhase;
     
+    [System.Serializable] public class PhaseEntry //entry [0] is default
+    {
+        public bool doIntermittentStatic, doIntermittentText;
+        public Vector2 staticWindow;
+        public Vector2 staticDuration;
+        [Range(0,1)] public float passiveStaticVolume, passiveWhisperVolume;
+    }
+    
     [Header("WATER")]
     public GameObject o_water;
     [Range(0,1)]
@@ -25,7 +33,9 @@ public class TrackCorruption : MonoBehaviour
     [SerializeField] private GameObject[] corruptedTerrain1, corruptedTerrain2, corruptedTerrain3;
     
     [Header("STATIC")]
+    public PhaseEntry[] phases;
     public bool forceStatic = false;
+    public bool transition = false;
     [SerializeField] private float staticDuration = 0.1f;
     private float staticTime = 0;
     [Range(0,1)]
@@ -33,12 +43,20 @@ public class TrackCorruption : MonoBehaviour
     [Space(5)]
     [SerializeField] private Volume ppvol;
     [SerializeField] private AudioSource staticSnd, whisperSnd;
+    private float imt_staticTimer, imt_staticTime;
+    [Space(5)]
+    [SerializeField] private TMPro.TextMeshProUGUI txt;
+    [SerializeField] private string[] flash_entries;
+    [SerializeField] private Vector2 randomPos, randomPossiblePos;
+    [SerializeField] private float jitter;
+    
     
     // Start is called before the first frame update
     void Start()
     {
         ToggleCorruptionObjects();
-        staticTime = -1;
+        staticTime = -999;
+        imt_staticTime = 0;
     }   
 
     // Update is called once per frame
@@ -46,19 +64,32 @@ public class TrackCorruption : MonoBehaviour
     {
         corruption += (Time.deltaTime*corruptionRate);
         
+        if ((corruptionPhase < phases.Length) && (phases[corruptionPhase].doIntermittentStatic))
+        {
+            if (imt_staticTimer > imt_staticTime)
+            {
+                DoStatic(Random.Range(phases[corruptionPhase].staticDuration.x, phases[corruptionPhase].staticDuration.y), phases[corruptionPhase].doIntermittentText, false);
+                imt_staticTimer = 0 - Random.Range(phases[corruptionPhase].staticWindow.x, phases[corruptionPhase].staticWindow.y);
+            }
+            else
+            {
+                imt_staticTimer += (Time.deltaTime);
+            }
+        }
+        
         //Static overlay when corrupting the environment
-        
-        
         Color staticCol = Color.white;
-        staticCol.a = (staticActive) ? 1f : ((corruptionPhase > 0) ? staticPassive : 0);
-        staticSnd.volume = (staticActive) ? 1f : ((corruptionPhase > 0) ? 0.05f : 0);
+        staticCol.a = (staticActive) ? ((transition) ? 1f : 0.5f) : ((corruptionPhase > 0) ? staticPassive : 0);
+        staticSnd.volume = (staticActive) ? 1f : ((corruptionPhase > 0) ? ((corruptionPhase < phases.Length) ? phases[corruptionPhase].passiveStaticVolume : 0.05f): 0);
+        whisperSnd.volume = (corruptionPhase < phases.Length) ? phases[corruptionPhase].passiveStaticVolume : 0;
+        
         staticOverlay.color = staticCol;
         
         staticOverlay.transform.localScale = new Vector2(((Random.value < 0.5f) ? -1 : 1), ((Random.value < 0.5f) ? -1 : 1));
         
-        staticActive = (((staticTime < staticDuration) && (staticTime > -1f)) || (forceStatic));
+        staticActive = (((staticTime < staticDuration) && (staticTime > -999f)) || (forceStatic));
         
-        if (staticTime > -1f)
+        if (staticTime > -999f)
         {
             if (staticTime < staticDuration)
             {
@@ -66,8 +97,10 @@ public class TrackCorruption : MonoBehaviour
             }
             else
             {
-                staticTime = -1f;
+                staticTime = -999f;
                 staticActive = false;
+                transition = false;
+                txt.gameObject.SetActive(false);
             }
         }
         else
@@ -75,12 +108,15 @@ public class TrackCorruption : MonoBehaviour
             //staticActive = false;
         }
         
+        
+        txt.rectTransform.anchoredPosition = randomPos + new Vector2(Random.Range(-jitter, jitter), Random.Range(-jitter, jitter));
+    
         o_water.GetComponent<MeshRenderer>().material.SetColor("_BaseColor", waterGradient.Evaluate(waterCorruption));
         
         if (corruptionPhase != prev_corruptionPhase)
         {
             //static engaged
-            staticTime = 0f;
+            DoStatic();
             ToggleCorruptionObjects();
         }
         prev_corruptionPhase = corruptionPhase;
@@ -125,5 +161,19 @@ public class TrackCorruption : MonoBehaviour
         {
             Debug.LogWarning("Tried to call PlaySoundRelativeTo with a null Audio clip!");
         }
+    }
+    
+    public void DoStatic(float dur = 0.1f, bool doVoiceline = false, bool transitioning = true)
+    {
+        transition = transitioning;
+        staticTime = (0f - dur);
+        
+        randomPos = new Vector3(Random.Range(-randomPossiblePos.x, randomPossiblePos.x), Random.Range(-randomPossiblePos.y, randomPossiblePos.y));
+        
+        if (doVoiceline)
+        {
+            txt.text = flash_entries[Random.Range(0,flash_entries.Length)];
+        }
+        txt.gameObject.SetActive(doVoiceline);
     }
 }
