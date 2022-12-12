@@ -739,7 +739,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 546105936958241968}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: -0.45, z: -0.5}
+  m_LocalPosition: {x: 0.5, y: -1, z: -0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -859,6 +859,7 @@ GameObject:
   - component: {fileID: 974639965}
   - component: {fileID: 2967487486349545711}
   - component: {fileID: 895438768}
+  - component: {fileID: 2100369882}
   m_Layer: 0
   m_Name: PlayerKart
   m_TagString: Untagged
@@ -903,7 +904,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c94dd43d1aa2fb540908ee0ac26aa9e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedIncrease: 1
+  speedIncrease: 2
   p_acceleration: 0
   direction: {x: 0, y: 0, z: 5.1}
   rotationStrenghtModifier: 0
@@ -974,6 +975,26 @@ MonoBehaviour:
   WheelBR: {fileID: 1089470386}
   WheelTurnFL: {fileID: 2094035090}
   WheelTurnFR: {fileID: 1838012511}
+--- !u!114 &2100369882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1388430300873739758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 318f700cb5ef614468e1f3060b34da2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Checkpoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &5000079700015105059
 GameObject:
   m_ObjectHideFlags: 0
@@ -1200,7 +1221,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7950123840036779335}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.5, y: -0.45, z: -0.5}
+  m_LocalPosition: {x: -0.5, y: -1, z: -0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
