@@ -67,11 +67,14 @@ public class Kart : MonoBehaviour
     {
         if (collision.transform.GetComponent<Wall>() == true)
         {
+            direction = Vector3.Reflect(direction, collision.GetContact(0).normal);
+            /*
             float x = Mathf.Abs(direction.x);
             float z = Mathf.Abs(direction.z);
 
             if (x < z)  { direction.x = -direction.x; }
             if (z < x)  { direction.z = -direction.z; }
+            */
         }
     }
 }
