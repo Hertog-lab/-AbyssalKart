@@ -21,16 +21,24 @@ public class Finish : MonoBehaviour
         if(chechpoint.finish == true && canFinish == true)
         {
             manager.Lap();
+            canFinish = false;
+            currentCheckpoint = 0;
         }
-        else if (chechpoint.number == currentCheckpoint + 1)
+        else if (chechpoint.number == currentCheckpoint)
         {
             Debug.Log("checkPoint : " + currentCheckpoint);
+            currentCheckpoint++;
             if(currentCheckpoint == Checkpoints.Length)
             {
+                Debug.Log("Finish");
                 canFinish = true;
-                currentCheckpoint = 0;
             }
-            currentCheckpoint++;
         }
+    }
+
+    private void Update()
+    {
+        Debug.Log(currentCheckpoint + " : checkpointcurrent");
+        Debug.Log(Checkpoints.Length + " : checkpoint lenght");
     }
 }
