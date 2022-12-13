@@ -17,20 +17,26 @@ public class Kart : MonoBehaviour
     [SerializeField] private float rotationStrenghtModifier;
     public bool p_drifting = false;
     private float minRotateStrenght = 3;
+    
+    //camera stuff
+    [SerializeField] private GameObject camera1;
+    [SerializeField] private GameObject camera2;
 
     private void Update()
     {
         Input();
-        //Drifting(); Input runs here and gets direction from Input
+        SpeedControll();
         MovementApplicance();
     }
 
     private void Input()
     {
+        if (UnityEngine.Input.GetKey(KeyCode.F)) { camera1.SetActive(false); camera2.SetActive(true); }
+        else { camera1.SetActive(true); camera2.SetActive(false); }
+        
         if (UnityEngine.Input.GetAxisRaw("Vertical") > 0f)
         {
-            direction.x += direction.x * speedIncrease * 0.1f * Time.deltaTime;
-            direction.z += direction.z * speedIncrease * 0.1f * Time.deltaTime;
+            direction += direction * (speedIncrease * 0.1f * Time.deltaTime);
         }
         if      (UnityEngine.Input.GetAxisRaw("Horizontal") > 0f) {Drifting(false); p_drifting = true;}
         else if (UnityEngine.Input.GetAxisRaw("Horizontal") < 0f) {Drifting(true ); p_drifting = true;}
@@ -53,6 +59,14 @@ public class Kart : MonoBehaviour
             : direction = new Vector3(direction.x += oldDirection.z * Time.deltaTime, direction.y,direction.z -= oldDirection.x * Time.deltaTime);
 
     }
+
+    private void SpeedControll()
+    {
+        if (p_acceleration < 5.3f)
+        {
+            direction += direction * (speedIncrease * 0.1f * Time.deltaTime);
+        }
+    }
     
     private void MovementApplicance()
     {
@@ -67,11 +81,15 @@ public class Kart : MonoBehaviour
     {
         if (collision.transform.GetComponent<Wall>() == true)
         {
+            direction = Vector3.Reflect(direction, collision.GetContact(0).normal);
+            direction += direction * (speedIncrease * Time.deltaTime);
+            /*
             float x = Mathf.Abs(direction.x);
             float z = Mathf.Abs(direction.z);
 
             if (x < z)  { direction.x = -direction.x; }
             if (z < x)  { direction.z = -direction.z; }
+            */
         }
     }
 }
