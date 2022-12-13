@@ -905,9 +905,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speedIncrease: 2
-  p_acceleration: 0
+  p_acceleration: 1
   direction: {x: 0, y: 0, z: 5.1}
-  rotationStrenghtModifier: 0
+  rotationStrenghtModifier: 1
   p_drifting: 0
   camera1: {fileID: 0}
   camera2: {fileID: 6603815062816247568}
