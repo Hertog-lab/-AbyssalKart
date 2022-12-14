@@ -14,6 +14,7 @@ public class MouthHazard : MonoBehaviour
     public GameObject player;
     Animator anim;
     public bool debounce = false;
+    public bool doMouthStuff = false;
     AudioSource src;
     private float mouthOpenRaw;
     [SerializeField] private float mouthOpen = 0, mouthOpenMult = 1;
@@ -34,30 +35,33 @@ public class MouthHazard : MonoBehaviour
     {
         anim.SetBool("eat", debounce);
         
-        //Get audio data for mouth
-        float[] audioSpectrum = new float[64]; //32 samples van de audio track
-        src.GetSpectrumData(audioSpectrum, 0, FFTWindow.Triangle); //populeert de audioSpectrum met data (Hanning is the FFTWindow interpolation methode)
-        for (int i = 1; i < audioSpectrum.Length - 1; i++)
+        if (doMouthStuff)
         {
-            mouthOpenRaw = Mathf.Log(audioSpectrum[0]);
-        }
-        
-        if (!System.Single.IsNaN(mouthOpen))
-        {
-            Debug.Log("not nan");
-        mouthOpen = Mathf.Lerp(mouthOpen, mouthOpenRaw+5, Time.deltaTime*mouthSmooth);
-
-            //Make mouth speak
-            foreach (MouthEntry entry in speakingMouths)
+            //Get audio data for mouth
+            float[] audioSpectrum = new float[64]; //32 samples van de audio track
+            src.GetSpectrumData(audioSpectrum, 0, FFTWindow.Triangle); //populeert de audioSpectrum met data (Hanning is the FFTWindow interpolation methode)
+            for (int i = 1; i < audioSpectrum.Length - 1; i++)
             {
-                entry.upperJaw.localEulerAngles = new Vector3(Mathf.Min(-entry.restPos, -entry.restPos - (mouthOpen*mouthOpenMult)), 0, 0);
-                entry.lowerJaw.localEulerAngles = new Vector3(Mathf.Max(entry.restPos, entry.restPos + (mouthOpen*mouthOpenMult)), 0, 0);
+                mouthOpenRaw = Mathf.Log(audioSpectrum[0]);
             }
-        }
-        else
-        {
-            mouthOpen = 0;
-            Debug.Log("nan");
+
+            if (!System.Single.IsNaN(mouthOpen))
+            {
+                Debug.Log("not nan");
+            mouthOpen = Mathf.Lerp(mouthOpen, mouthOpenRaw+5, Time.deltaTime*mouthSmooth);
+
+                //Make mouth speak
+                foreach (MouthEntry entry in speakingMouths)
+                {
+                    entry.upperJaw.localEulerAngles = new Vector3(Mathf.Min(-entry.restPos, -entry.restPos - (mouthOpen*mouthOpenMult)), 0, 0);
+                    entry.lowerJaw.localEulerAngles = new Vector3(Mathf.Max(entry.restPos, entry.restPos + (mouthOpen*mouthOpenMult)), 0, 0);
+                }
+            }
+            else
+            {
+                mouthOpen = 0;
+                Debug.Log("nan");
+            }
         }
     }
     
