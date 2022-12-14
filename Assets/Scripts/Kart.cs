@@ -14,7 +14,7 @@ public class Kart : MonoBehaviour
     private Vector3 acceleration;
     private Vector3 oldDirection;
     //Drifting Relaited
-    [SerializeField] private float rotationStrenghtModifier;
+    [SerializeField] public float rotationStrenghtModifier;
     public bool p_drifting = false;
     public float minRotateStrenght = 3;
 
