@@ -388,7 +388,7 @@ MonoBehaviour:
   WheelTurnFR: {fileID: 7464908200681021855}
   wheelSpeed: 400
   wheelTurnAngle: 30
-  kartTurnAngle: 25
+  kartTurnAngle: 30
   kartObject: {fileID: 5478608172589195037}
 --- !u!114 &2100369882
 MonoBehaviour:
