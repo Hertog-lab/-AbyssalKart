@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startPoints: 10
-  secondsPerPoints: 10
+  secondsPerPoints: 1
 --- !u!1 &6721243976387286892
 GameObject:
   m_ObjectHideFlags: 0
@@ -70,7 +70,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6721243976387286892}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -101,6 +101,7 @@ MonoBehaviour:
   scoreText: {fileID: 0}
   oldTimeText: {fileID: 0}
   gameOverMenu: {fileID: 0}
+  canvas: {fileID: 0}
   characters: []
 --- !u!1 &8506604669712720880
 GameObject:
