@@ -19,6 +19,7 @@ public class TrackCorruption : MonoBehaviour
         [Range(0,1)] public float passiveStaticVolume, passiveWhisperVolume, musicVolume = 1f;
         [Range(-8,8)] public float musicPitch = 1f;
         public GameObject[] activatedObjects;
+        public GameObject[] exclusiveObjects;
     }
     
     [Header("WATER")]
@@ -150,6 +151,10 @@ public class TrackCorruption : MonoBehaviour
             foreach (GameObject ao in phases[i].activatedObjects)
             {
                 ao.SetActive((i <= corruptionPhase));
+            }
+            foreach (GameObject eo in phases[i].exclusiveObjects)
+            {
+                eo.SetActive((i == corruptionPhase));
             }
         }
     }
