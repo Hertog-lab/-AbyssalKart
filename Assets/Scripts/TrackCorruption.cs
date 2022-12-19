@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class TrackCorruption : MonoBehaviour
 {
     public float corruption;
-    public float corruptionRate;
     
     public int corruptionPhase;
     private int prev_corruptionPhase;
@@ -17,7 +16,9 @@ public class TrackCorruption : MonoBehaviour
         public bool doIntermittentStatic, doIntermittentText;
         public Vector2 staticWindow;
         public Vector2 staticDuration;
-        [Range(0,1)] public float passiveStaticVolume, passiveWhisperVolume;
+        [Range(0,1)] public float passiveStaticVolume, passiveWhisperVolume, musicVolume = 1f;
+        [Range(-8,8)] public float musicPitch = 1f;
+        public GameObject[] activatedObjects;
     }
     
     [Header("WATER")]
@@ -29,8 +30,6 @@ public class TrackCorruption : MonoBehaviour
     [Header("TERRAIN")]
     [SerializeField] private Image staticOverlay;
     [SerializeField] private bool staticActive;
-    [Space(5)]
-    [SerializeField] private GameObject[] corruptedTerrain1, corruptedTerrain2, corruptedTerrain3;
     
     [Header("STATIC")]
     public PhaseEntry[] phases;
@@ -42,7 +41,7 @@ public class TrackCorruption : MonoBehaviour
     [SerializeField] private float staticPassive = 0f;
     [Space(5)]
     [SerializeField] private Volume ppvol;
-    [SerializeField] private AudioSource staticSnd, whisperSnd;
+    [SerializeField] private AudioSource staticSnd, whisperSnd, musicSnd;
     private float imt_staticTimer, imt_staticTime;
     [Space(5)]
     [SerializeField] private TMPro.TextMeshProUGUI txt;
@@ -61,9 +60,7 @@ public class TrackCorruption : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        corruption += (Time.deltaTime*corruptionRate);
-        
+    {        
         if ((corruptionPhase < phases.Length) && (phases[corruptionPhase].doIntermittentStatic))
         {
             if (imt_staticTimer > imt_staticTime)
@@ -80,7 +77,18 @@ public class TrackCorruption : MonoBehaviour
         //Static overlay when corrupting the environment
         Color staticCol = Color.white;
         staticCol.a = (staticActive) ? ((transition) ? 1f : 0.5f) : ((corruptionPhase > 0) ? staticPassive : 0);
-        staticSnd.volume = (staticActive) ? 1f : ((corruptionPhase > 0) ? ((corruptionPhase < phases.Length) ? phases[corruptionPhase].passiveStaticVolume : 0.05f): 0);
+        
+        if (staticActive == true)
+        {
+            staticSnd.volume = (transition) ? 0.8f : 0.4f;
+        }
+        else
+        {
+            staticSnd.volume = ((corruptionPhase > 0) ? ((corruptionPhase < phases.Length) ? phases[corruptionPhase].passiveStaticVolume : 0.05f) : 0);
+        }
+        
+        musicSnd.pitch = ((corruptionPhase < phases.Length) ? phases[corruptionPhase].musicPitch : 1);
+        
         whisperSnd.volume = (corruptionPhase < phases.Length) ? phases[corruptionPhase].passiveStaticVolume : 0;
         
         staticOverlay.color = staticCol;
@@ -108,10 +116,20 @@ public class TrackCorruption : MonoBehaviour
             //staticActive = false;
         }
         
+        UpdateCorruption(0);
         
         txt.rectTransform.anchoredPosition = randomPos + new Vector2(Random.Range(-jitter, jitter), Random.Range(-jitter, jitter));
     
         o_water.GetComponent<MeshRenderer>().material.SetColor("_BaseColor", waterGradient.Evaluate(waterCorruption));
+        
+    }
+    
+    public void UpdateCorruption(float amt)
+    {
+        corruption += amt;
+        
+        corruptionPhase = Mathf.Clamp( (int)Mathf.Floor(corruption), 0, phases.Length-1);
+        
         
         if (corruptionPhase != prev_corruptionPhase)
         {
@@ -127,17 +145,12 @@ public class TrackCorruption : MonoBehaviour
         waterCorruption = ((corruptionPhase > 0) ? ((corruptionPhase > 1) ? 1 : 0.5f) : 0);
         ppvol.weight = ((corruptionPhase > 0) ? ((corruptionPhase > 1) ? ((corruptionPhase > 0) ? 1 : 0.5f) : 0.25f) : 0);
         
-        foreach (GameObject cor1 in corruptedTerrain1)
+        for (int i = 0; i < phases.Length; i++)
         {
-            cor1.SetActive(corruptionPhase > 0);
-        }
-        foreach (GameObject cor2 in corruptedTerrain2)
-        {
-            cor2.SetActive(corruptionPhase > 1);
-        }
-        foreach (GameObject cor3 in corruptedTerrain3)
-        {
-            cor3.SetActive(corruptionPhase > 2);
+            foreach (GameObject ao in phases[i].activatedObjects)
+            {
+                ao.SetActive((i <= corruptionPhase));
+            }
         }
     }
     

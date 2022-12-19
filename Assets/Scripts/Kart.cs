@@ -14,25 +14,27 @@ public class Kart : MonoBehaviour
     private Vector3 acceleration;
     private Vector3 oldDirection;
     //Drifting Relaited
-    [SerializeField] private float rotationStrenghtModifier;
+    public float rotationStrenghtModifier;
     public bool p_drifting = false;
-    private float minRotateStrenght = 3;
+    public float minRotateStrenght = 3;
+
+    private bool playerControl = true;
     
     //camera stuff
-    [SerializeField] private GameObject camera1;
-    [SerializeField] private GameObject camera2;
+    //[SerializeField] private GameObject camera1;
+    //[SerializeField] private GameObject camera2;
 
     private void Update()
     {
-        Input();
+        if (playerControl == true) { Input(); }
         SpeedControll();
         MovementApplicance();
     }
 
     private void Input()
     {
-        if (UnityEngine.Input.GetKey(KeyCode.F)) { camera1.SetActive(false); camera2.SetActive(true); }
-        else { camera1.SetActive(true); camera2.SetActive(false); }
+        //if (UnityEngine.Input.GetKey(KeyCode.F)) { camera1.GetComponent<Camera>().enabled = false; camera2.GetComponent<Camera>().enabled = true; }
+      //  else { camera1.GetComponent<Camera>().enabled = true; camera2.GetComponent<Camera>().enabled = false; }
         
         if (UnityEngine.Input.GetAxisRaw("Vertical") > 0f)
         {
@@ -70,7 +72,7 @@ public class Kart : MonoBehaviour
     
     private void MovementApplicance()
     {
-        acceleration = direction;
+        acceleration = new Vector3(direction.x, 0f, direction.z);
         p_acceleration = acceleration.magnitude;
         oldDirection = direction;
         transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
@@ -79,17 +81,18 @@ public class Kart : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        Debug.Log(collision.gameObject);
+        
         if (collision.transform.GetComponent<Wall>() == true)
         {
             direction = Vector3.Reflect(direction, collision.GetContact(0).normal);
-            direction += direction * (speedIncrease * Time.deltaTime);
-            /*
-            float x = Mathf.Abs(direction.x);
-            float z = Mathf.Abs(direction.z);
-
-            if (x < z)  { direction.x = -direction.x; }
-            if (z < x)  { direction.z = -direction.z; }
-            */
         }
+        if (collision.transform.GetComponent<MouthHazard>() == true)
+        {
+            playerControl = false;
+            Debug.Log("gobble gobble");
+            direction = new Vector3(direction.x += direction.z * Time.deltaTime, direction.y,direction.z -= direction.x * Time.deltaTime);
+        }
+        
     }
 }

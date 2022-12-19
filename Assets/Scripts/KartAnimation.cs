@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class KartAnimation : MonoBehaviour
 {
-    [SerializeField] private GameObject WheelFL;
-    [SerializeField] private GameObject WheelFR;
-    [SerializeField] private GameObject WheelBL;
-    [SerializeField] private GameObject WheelBR;
-    [SerializeField] private GameObject WheelTurnFL;
-    [SerializeField] private GameObject WheelTurnFR;
+    //[SerializeField] private GameObject WheelFL, WheelFR, WheelBL, WheelBR;
+    [SerializeField] private Transform[] wheels;
+    [SerializeField] private GameObject WheelTurnFL, WheelTurnFR;
+    public float wheelSpeed = 400, wheelTurnAngle = 30, kartTurnAngle = 25;
 
     private Kart kart;
-    private GameObject kartObject;
+    [SerializeField] private GameObject kartObject;
+    private float wheelTurn, kartTurn;
 
     private void Start()
     {
@@ -21,25 +20,20 @@ public class KartAnimation : MonoBehaviour
 
     private void Update()
     {
-        WheelFL.transform.Rotate(Vector3.right, kart.p_acceleration * Time.deltaTime * 1000);
-        WheelFR.transform.Rotate(Vector3.right, kart.p_acceleration * Time.deltaTime * 1000);
-        WheelBL.transform.Rotate(Vector3.right, kart.p_acceleration * Time.deltaTime * 1000);
-        WheelBR.transform.Rotate(Vector3.right, kart.p_acceleration * Time.deltaTime * 1000);
+        foreach (Transform wheel in wheels)
+        {
+            wheel.Rotate(Vector3.right, wheelSpeed * kart.p_acceleration * Time.deltaTime);
+        }
 
-        if (Input.GetAxisRaw("Horizontal") < 0)
-        {
-            WheelTurnFL.transform.localRotation = Quaternion.Euler(0, -30, 0);
-            WheelTurnFR.transform.localRotation = Quaternion.Euler(0, -30, 0);
-        }
-        else if(Input.GetAxisRaw("Horizontal") > 0)
-        {
-            WheelTurnFL.transform.localRotation = Quaternion.Euler(0, 30, 0);
-            WheelTurnFR.transform.localRotation = Quaternion.Euler(0, 30, 0);
-        }
-        else
-        {
-            WheelTurnFL.transform.localRotation = Quaternion.Euler(0, 0, 0);
-            WheelTurnFR.transform.localRotation = Quaternion.Euler(0, 0, 0);
-        }
+        wheelTurn = Mathf.Lerp(wheelTurn, ((Input.GetAxisRaw("Horizontal") < 0) ? -wheelTurnAngle : ((Input.GetAxisRaw("Horizontal") > 0) ? wheelTurnAngle : 0)), Time.deltaTime*12);
+        WheelTurnFL.transform.localEulerAngles = new Vector3(0,wheelTurn,0);
+        WheelTurnFR.transform.localEulerAngles = new Vector3(0,wheelTurn,0);
+        
+        //float driftAmt = ((kart.rotationStrenghtModifier-kart.minRotateStrenght)/7);
+        float driftAmt = 1;
+        
+        kartTurn = Mathf.Lerp(kartTurn, ((Input.GetAxisRaw("Horizontal") < 0) ? -driftAmt*kartTurnAngle : ((Input.GetAxisRaw("Horizontal") > 0) ? driftAmt*kartTurnAngle : 0)), Time.deltaTime*8);
+        kartObject.transform.localEulerAngles = new Vector3(0,kartTurn,0);
     }
+
 }

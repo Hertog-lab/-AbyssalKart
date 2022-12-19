@@ -41,4 +41,12 @@ public class Finish : MonoBehaviour
         Debug.Log(currentCheckpoint + " : checkpointcurrent");
         Debug.Log(Checkpoints.Length + " : checkpoint lenght");
     }
+    /// <summary>
+    /// Call this function to reset the lap checkpoint counter so the player can restart the lap
+    /// </summary>
+    public void ResetCheckPoints()
+    {
+        currentCheckpoint = 0;
+        canFinish = false;
+    }
 }
