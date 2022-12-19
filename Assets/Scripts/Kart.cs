@@ -14,9 +14,9 @@ public class Kart : MonoBehaviour
     private Vector3 acceleration;
     private Vector3 oldDirection;
     //Drifting Relaited
-    [SerializeField] private float rotationStrenghtModifier;
+    public float rotationStrenghtModifier;
     public bool p_drifting = false;
-    private float minRotateStrenght = 3;
+    public float minRotateStrenght = 3;
 
     private bool playerControl = true;
     
@@ -34,7 +34,7 @@ public class Kart : MonoBehaviour
     private void Input()
     {
         //if (UnityEngine.Input.GetKey(KeyCode.F)) { camera1.GetComponent<Camera>().enabled = false; camera2.GetComponent<Camera>().enabled = true; }
-        //else { camera1.GetComponent<Camera>().enabled = true; camera2.GetComponent<Camera>().enabled = false; }
+      //  else { camera1.GetComponent<Camera>().enabled = true; camera2.GetComponent<Camera>().enabled = false; }
         
         if (UnityEngine.Input.GetAxisRaw("Vertical") > 0f)
         {
@@ -86,12 +86,12 @@ public class Kart : MonoBehaviour
         if (collision.transform.GetComponent<Wall>() == true)
         {
             direction = Vector3.Reflect(direction, collision.GetContact(0).normal);
-            direction += direction * (speedIncrease * Time.deltaTime);
         }
         if (collision.transform.GetComponent<MouthHazard>() == true)
         {
             playerControl = false;
             Debug.Log("gobble gobble");
+            direction = new Vector3(direction.x += direction.z * Time.deltaTime, direction.y,direction.z -= direction.x * Time.deltaTime);
         }
         
     }
