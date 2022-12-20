@@ -4,15 +4,39 @@ using UnityEngine;
 
 public class Tentacle : MonoBehaviour
 {
-    private Kart kart;
+    private Kart target;
+    public Transform t;
+    Animator anim;
+    public bool slammin;
+    public float range;
 
     private void Start()
     {
-        kart = FindObjectOfType<Kart>();
+        target = FindObjectOfType<Kart>();
+        anim = GetComponent<Animator>();
     }
 
     private void Update()
     {
-        transform.LookAt(kart.transform);
+        Vector3 targetpos = target.transform.position;
+        targetpos.y = transform.position.y;
+        if (!slammin)
+        {
+            t.LookAt(targetpos);
+            
+            float dist = (targetpos - transform.position).magnitude;
+            if (dist < range)
+            {
+                slammin = true;
+                t.LookAt(target.transform.position + target.p_direction);
+                anim.SetBool("Slam", true);
+            }
+        }
+    }
+    
+    public void FinishSlam()
+    {
+        anim.SetBool("Slam", false);
+        slammin = false;
     }
 }
