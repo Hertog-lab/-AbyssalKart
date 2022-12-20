@@ -37,7 +37,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _starSize: 100
-    - _stars: 0.66
+    - _stars: 0.651
     m_Colors:
     - _intersectColor: {r: 0, g: 0.22619766, b: 1, a: 0}
     - _starScroll: {r: 0.1, g: -0.1, b: 0, a: 0}

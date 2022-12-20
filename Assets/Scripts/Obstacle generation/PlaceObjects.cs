@@ -8,7 +8,10 @@ public class PlaceObjects : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Period)) 
+        if (Input.GetKeyDown(KeyCode.Period))
+        {
+            
+        }
     }
 
     private void PlaceObject()
