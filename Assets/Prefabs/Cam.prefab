@@ -5172,9 +5172,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2ccaa76a424bc245b7e8dd93edda552, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 8
+  speed: 15
   target: {fileID: 0}
-  anticipateMovement: 1
+  anticipateMovement: 0
   anticipateAmount: 0.25
 --- !u!114 &3477444063457020344
 MonoBehaviour:
