@@ -4,29 +4,39 @@ using UnityEngine;
 
 public class Tentacle : MonoBehaviour
 {
-    private Manager manager;
+    private Kart target;
+    public Transform t;
+    Animator anim;
+    public bool slammin;
+    public float range;
 
     private void Start()
     {
-        manager = FindObjectOfType<Manager>();
+        target = FindObjectOfType<Kart>();
+        anim = GetComponent<Animator>();
     }
 
-    private void OnCollisionEnter(Collision other)
+    private void Update()
     {
-        Kart kart = other.gameObject.GetComponent<Kart>();
-        if(kart.p_drifting == true)
+        Vector3 targetpos = target.transform.position;
+        targetpos.y = transform.position.y;
+        if (!slammin)
         {
-            DestroyTentacle();
-            Debug.Log("DriftKill");
-        }
-        else
-        {
-            manager.GameOver();
+            t.LookAt(targetpos);
+            
+            float dist = (targetpos - transform.position).magnitude;
+            if (dist < range)
+            {
+                slammin = true;
+                t.LookAt(target.transform.position + target.p_direction);
+                anim.SetBool("Slam", true);
+            }
         }
     }
-
-    private void DestroyTentacle()
+    
+    public void FinishSlam()
     {
-
+        anim.SetBool("Slam", false);
+        slammin = false;
     }
 }
