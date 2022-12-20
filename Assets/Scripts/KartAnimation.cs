@@ -39,7 +39,7 @@ public class KartAnimation : MonoBehaviour
         kartTurn = Mathf.Lerp(kartTurn, ((Input.GetAxisRaw("Horizontal") < 0) ? -driftAmt*kartTurnAngle : ((Input.GetAxisRaw("Horizontal") > 0) ? driftAmt*kartTurnAngle : 0)), Time.deltaTime*8);
         kartObject.transform.localEulerAngles = new Vector3(0,kartTurn,0);
         
-        src.pitch = Mathf.Clamp(kart.direction.magnitude*kartPitch, pitchClamp.x, pitchClamp.y);
+        src.pitch = Mathf.Clamp(kart.p_direction.magnitude*kartPitch, pitchClamp.x, pitchClamp.y);
     }
 
 }
