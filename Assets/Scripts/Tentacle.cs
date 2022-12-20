@@ -4,29 +4,15 @@ using UnityEngine;
 
 public class Tentacle : MonoBehaviour
 {
-    private Manager manager;
+    private Kart kart;
 
     private void Start()
     {
-        manager = FindObjectOfType<Manager>();
+        kart = FindObjectOfType<Kart>();
     }
 
-    private void OnCollisionEnter(Collision other)
+    private void Update()
     {
-        Kart kart = other.gameObject.GetComponent<Kart>();
-        if(kart.p_drifting == true)
-        {
-            DestroyTentacle();
-            Debug.Log("DriftKill");
-        }
-        else
-        {
-            manager.GameOver();
-        }
-    }
-
-    private void DestroyTentacle()
-    {
-
+        transform.LookAt(kart.transform);
     }
 }
