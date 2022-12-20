@@ -12,10 +12,14 @@ public class KartAnimation : MonoBehaviour
     private Kart kart;
     [SerializeField] private GameObject kartObject;
     private float wheelTurn, kartTurn;
+    private AudioSource src;
+    public float kartPitch;
+    public Vector2 pitchClamp = new Vector2(0.1f, 4f); 
 
     private void Start()
     {
         kart = gameObject.GetComponent<Kart>();
+        src = gameObject.GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -34,6 +38,8 @@ public class KartAnimation : MonoBehaviour
         
         kartTurn = Mathf.Lerp(kartTurn, ((Input.GetAxisRaw("Horizontal") < 0) ? -driftAmt*kartTurnAngle : ((Input.GetAxisRaw("Horizontal") > 0) ? driftAmt*kartTurnAngle : 0)), Time.deltaTime*8);
         kartObject.transform.localEulerAngles = new Vector3(0,kartTurn,0);
+        
+        src.pitch = Mathf.Clamp(kart.p_direction.magnitude*kartPitch, pitchClamp.x, pitchClamp.y);
     }
 
 }

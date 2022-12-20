@@ -17,6 +17,7 @@ public class MouthHazard : MonoBehaviour
     public bool doMouthStuff = false;
     AudioSource src;
     private float mouthOpenRaw;
+    [SerializeField] private AudioClip[] bites;
     [SerializeField] private float mouthOpen = 0, mouthOpenMult = 1;
     public MouthEntry[] speakingMouths;
     
@@ -65,6 +66,16 @@ public class MouthHazard : MonoBehaviour
         }
     }
     
+    public void Bite()
+    {
+        PlayBiteSound(0);
+        if (debounce == true)
+        {
+            PlayBiteSound(1);
+            Debug.Log("Player was bitten!");
+        }
+    }
+    
     void OnTriggerEnter(Collider other)
     {
         if (other == player.GetComponent<Collider>() && !debounce)
@@ -80,5 +91,10 @@ public class MouthHazard : MonoBehaviour
         {
             debounce = false;
         }
+    }
+    
+    public void PlayBiteSound(int id)
+    {
+        src.PlayOneShot(bites[id]);
     }
 }
