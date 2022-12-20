@@ -21,32 +21,34 @@ public class SeaArm : MonoBehaviour
         privatespeed = Random.Range(speedRange.x, speedRange.y);
         privatescale = Random.Range(scaleRange.x, scaleRange.y);
         transform.localScale = new Vector3(privatescale, privatescale, privatescale);
+        anim.SetFloat("randomSpeed", privatespeed);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-        Vector3 direction = player.position - transform.position;
-        anim.SetBool("Animate", (direction.magnitude < range));
-        anim.SetFloat("randomSpeed", privatespeed);
-        
-        if (direction.magnitude < range)
+        if (player != null)
         {
-            
-            //Quaternion toRotation = Quaternion.LookRotation(direction);
-            //arm.rotation = Quaternion.Slerp(transform.rotation, toRotation, Time.time*turnSpeed);
-            arm.rotation = Quaternion.LookRotation(Vector3.RotateTowards(arm.forward, direction, Time.deltaTime*turnSpeed, 0.0f));
-            
-            arm.localScale = Vector3.Lerp(arm.localScale, new Vector3(scaleOffset.x, scaleOffset.y, scaleOffset.z*(direction.magnitude/(meshRange* privatescale))), Time.deltaTime*(turnSpeed*2));
+            Vector3 direction = player.position - transform.position;
+            anim.SetBool("Animate", (direction.magnitude < range));
+            anim.SetFloat("randomSpeed", privatespeed);
+
+            if (direction.magnitude < range)
+            {
+
+                //Quaternion toRotation = Quaternion.LookRotation(direction);
+                //arm.rotation = Quaternion.Slerp(transform.rotation, toRotation, Time.time*turnSpeed);
+                arm.rotation = Quaternion.LookRotation(Vector3.RotateTowards(arm.forward, direction, Time.deltaTime*turnSpeed, 0.0f));
+
+                arm.localScale = Vector3.Lerp(arm.localScale, new Vector3(scaleOffset.x, scaleOffset.y, scaleOffset.z*(direction.magnitude/(meshRange* privatescale))), Time.deltaTime*(turnSpeed*2));
+            }
+            else
+            {
+
+                arm.rotation = Quaternion.LookRotation(Vector3.RotateTowards(arm.forward, (transform.position+new Vector3(0.1f, 5f, 0f)) - transform.position, Time.deltaTime*turnSpeed, 0.0f));
+
+                arm.localScale = Vector3.Lerp(arm.localScale, new Vector3(scaleOffset.x, scaleOffset.y, scaleOffset.z), Time.deltaTime*(turnSpeed*2));
+            }
         }
-        else
-        {
-            
-            arm.rotation = Quaternion.LookRotation(Vector3.RotateTowards(arm.forward, (transform.position+new Vector3(0.1f, 5f, 0f)) - transform.position, Time.deltaTime*turnSpeed, 0.0f));
-            
-            arm.localScale = Vector3.Lerp(arm.localScale, new Vector3(scaleOffset.x, scaleOffset.y, scaleOffset.z), Time.deltaTime*(turnSpeed*2));
-        }
-        
     }
 }
