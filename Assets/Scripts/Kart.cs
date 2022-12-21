@@ -53,7 +53,7 @@ public class Kart : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        //Wall bounce TODO: add slow
+        //Wall bounce
         if (collision.transform.GetComponent<Wall>() == true)
         {
             p_direction = Vector3.Reflect(p_direction, collision.GetContact(0).normal);
