@@ -8,18 +8,28 @@ using UnityEngine;
 
 public class Kart : MonoBehaviour
 {
+    [Header("Speed Values")]
     public float p_acceleration;
     public Vector3 p_direction = new Vector3(0f,0f,1f);
     public bool p_drifting = false;
-    public float p_minRotateStrenght = 3;
 
+    [SerializeField] private float maxSpeedValue;
+
+    [Header("KeyCodes")]
     [SerializeField] private KeyCode forward;
     [SerializeField] private KeyCode left;
     [SerializeField] private KeyCode right;
 
+    private Rigidbody rbody;
+
+    private void Start()
+    {
+        rbody = gameObject.GetComponent<Rigidbody>();
+    }
+
     private void Input()
     {
-        float driftStrenght = 5;
+        float driftStrenght = 3;
         
         //Forward
         if (UnityEngine.Input.GetKey(forward))
@@ -33,7 +43,7 @@ public class Kart : MonoBehaviour
         if (UnityEngine.Input.GetKey(left) || UnityEngine.Input.GetKey(right))
         {
             p_drifting = true;
-            p_direction -= p_direction * Time.deltaTime;
+            p_direction -= p_direction * (0.75f * Time.deltaTime);
             float x = Mathf.Abs(p_direction.x);
             float z = Mathf.Abs(p_direction.z);
             if (x > z) {p_direction.z += p_direction.z * (2.5f * Time.deltaTime);}
@@ -43,9 +53,12 @@ public class Kart : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        //Wall bounce TODO: add slow
-        if (collision.transform.GetComponent<Wall>() == true) 
-        { p_direction = Vector3.Reflect(p_direction, collision.GetContact(0).normal); }
+        //Wall bounce
+        if (collision.transform.GetComponent<Wall>() == true)
+        {
+            p_direction = Vector3.Reflect(p_direction, collision.GetContact(0).normal);
+            p_direction = p_direction * 0.75f;
+        }
     }
 
     private void MovementAppliance()
@@ -54,7 +67,8 @@ public class Kart : MonoBehaviour
         if (p_acceleration < 5.3f)
         { p_direction += p_direction * Time.deltaTime; }
         transform.rotation = Quaternion.LookRotation(p_direction, Vector3.up);
-        transform.position += p_direction * Time.deltaTime;
+        p_direction = new Vector3(Mathf.Clamp(p_direction.x, -maxSpeedValue, maxSpeedValue), 0f, Mathf.Clamp(p_direction.z, -maxSpeedValue, maxSpeedValue));
+        rbody.position += p_direction * Time.deltaTime;
     }
 
     private void Update()
