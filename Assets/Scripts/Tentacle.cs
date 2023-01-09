@@ -9,11 +9,14 @@ public class Tentacle : MonoBehaviour
     Animator anim;
     public bool slammin;
     public float range;
+    private GameObject player;
+    private Manager manager;
 
     private void Start()
     {
         target = FindObjectOfType<Kart>();
         anim = GetComponent<Animator>();
+        manager = FindObjectOfType<Manager>();
     }
 
     private void Update()
@@ -38,5 +41,13 @@ public class Tentacle : MonoBehaviour
     {
         anim.SetBool("Slam", false);
         slammin = false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other == player.GetComponent<Collider>())
+        {
+            manager.GameOver();
+        }
     }
 }

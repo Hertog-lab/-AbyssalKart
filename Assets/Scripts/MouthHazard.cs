@@ -20,7 +20,8 @@ public class MouthHazard : MonoBehaviour
     [SerializeField] private AudioClip[] bites;
     [SerializeField] private float mouthOpen = 0, mouthOpenMult = 1;
     public MouthEntry[] speakingMouths;
-    
+    private Manager manager;
+
     public float mouthSmooth = 4;
     // Start is called before the first frame update
     void Start()
@@ -29,6 +30,7 @@ public class MouthHazard : MonoBehaviour
         src = GetComponent<AudioSource>();
         mouthOpen = 0;
         mouthOpenRaw = 0;
+        manager = FindObjectOfType<Manager>();
     }
 
     // Update is called once per frame
@@ -82,6 +84,7 @@ public class MouthHazard : MonoBehaviour
         {
             debounce = true;
             Debug.Log("nom nom nom");
+            manager.GameOver();
         }
     }
     
