@@ -20,14 +20,6 @@ public class InputIndicator : MonoBehaviour
             UpButton.SetActive(false);
         }
         
-        if(Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
-        {
-            DownButton.SetActive(true);
-        }
-        else
-        {
-            DownButton.SetActive(false);
-        }
 
         if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
@@ -46,5 +38,6 @@ public class InputIndicator : MonoBehaviour
         {
             RightButton.SetActive(false);
         }
+        
     }
 }
