@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ManagerScene : MonoBehaviour
 {
@@ -25,6 +26,11 @@ public class ManagerScene : MonoBehaviour
     public void ChangeScene(string scene)
     {
         SceneManager.LoadScene(scene);
+    }
+
+    public void ChangeFocus(Button button)
+    {
+        button.Select();
     }
 
     public void QuitGame()
