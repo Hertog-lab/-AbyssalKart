@@ -538,9 +538,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 414589531}
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0.40821785, y: -0.23456976, z: 0.10938165, w: 0.8754262}
+  m_LocalPosition: {x: -0.0001373291, y: 2.9999354, z: -0.00002670288}
+  m_LocalScale: {x: 1, y: 1.0000001, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1474,6 +1474,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 180510554}
+        m_TargetAssemblyTypeName: ManagerScene, Assembly-CSharp
+        m_MethodName: ChangeFocus
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 7416818751276964343}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -26223,6 +26235,18 @@ MonoBehaviour:
           m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: Creddits
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 180510554}
+        m_TargetAssemblyTypeName: ManagerScene, Assembly-CSharp
+        m_MethodName: ChangeFocus
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1194032783}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &7416818751843256825
