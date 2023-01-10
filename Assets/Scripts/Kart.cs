@@ -20,11 +20,13 @@ public class Kart : MonoBehaviour
     [SerializeField] private KeyCode left;
     [SerializeField] private KeyCode right;
 
+    private Transform kartColTrans;
     private Rigidbody rbody;
 
     private void Start()
     {
         rbody = gameObject.GetComponent<Rigidbody>();
+        kartColTrans = gameObject.transform.parent.GetChild(0).transform;
     }
 
     private void Input()
@@ -66,7 +68,8 @@ public class Kart : MonoBehaviour
         p_acceleration = p_direction.magnitude;
         if (p_acceleration < 5.3f)
         { p_direction += p_direction * Time.deltaTime; }
-        transform.rotation = Quaternion.LookRotation(p_direction, Vector3.up);
+        kartColTrans.rotation = Quaternion.LookRotation(p_direction, Vector3.up);
+        kartColTrans.position = Vector3.Lerp(kartColTrans.position, transform.position, 0.05f);
         p_direction = new Vector3(Mathf.Clamp(p_direction.x, -maxSpeedValue, maxSpeedValue), 0f, Mathf.Clamp(p_direction.z, -maxSpeedValue, maxSpeedValue));
         rbody.position += p_direction * Time.deltaTime;
     }
