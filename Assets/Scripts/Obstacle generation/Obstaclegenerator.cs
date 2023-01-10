@@ -11,7 +11,7 @@ public class Obstaclegenerator : MonoBehaviour
     private void Start()
     {
         randomize();
-        //foreach (var Tentacle in TentacleLocations) Tentacle.SetActive(false);
+        foreach (var Tentacle in TentacleLocations) Tentacle.SetActive(false);
         foreach (var Mouth in MouthLocations) Mouth.SetActive(false);
         StartCoroutine(SpawnObstacle(spawnDelay));
     }
@@ -38,8 +38,7 @@ public class Obstaclegenerator : MonoBehaviour
     {
         foreach(var tentacle in TentacleLocations)
         {
-            TentacleLock tent = tentacle.GetComponent<TentacleLock>();
-            if(tent.Lock == false) tentacle.transform.position = new Vector3(Random.Range(-50, 100), tentacle.transform.position.y, Random.Range(-90, 60));
+            tentacle.transform.position = new Vector3(Random.Range(-50, 100), tentacle.transform.position.y, Random.Range(-90, 60));
         }
 
         foreach(var mouth in MouthLocations)
