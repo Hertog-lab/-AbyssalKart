@@ -610,6 +610,8 @@ MonoBehaviour:
   kartObject: {fileID: 2908807985028999556}
   kartPitch: 0.1
   pitchClamp: {x: 0.1, y: 4}
+  right: 97
+  left: 100
 --- !u!114 &7231026628496928579
 MonoBehaviour:
   m_ObjectHideFlags: 0
