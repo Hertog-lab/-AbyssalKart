@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Tentacle : MonoBehaviour
 {
-    private Kart target;
+    public Kart target;
     public Transform t;
     Animator anim;
     public bool slammin;
@@ -14,7 +14,7 @@ public class Tentacle : MonoBehaviour
 
     private void Start()
     {
-        target = FindObjectOfType<Kart>();
+        
         anim = GetComponent<Animator>();
         manager = FindObjectOfType<Manager>();
     }

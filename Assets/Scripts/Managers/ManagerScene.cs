@@ -45,4 +45,9 @@ public class ManagerScene : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void TimeScaleReset()
+    {
+        Time.timeScale = 0.01f;
+    }
 }

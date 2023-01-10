@@ -339,7 +339,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &191091502 stripped
 Transform:
@@ -544,7 +544,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!114 &414589534
 MonoBehaviour:
@@ -692,7 +692,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &419117521 stripped
 Transform:
@@ -729,6 +729,87 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8770234813514363097, guid: 03739c8ef011cf84ba8d100b55406eeb, type: 3}
   m_PrefabInstance: {fileID: 7203170692258941084}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &452299277
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1388430300873739755, guid: 52daefac7cc28f04cb02c74dc4fddc00, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388430300873739755, guid: 52daefac7cc28f04cb02c74dc4fddc00, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.379775
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388430300873739755, guid: 52daefac7cc28f04cb02c74dc4fddc00, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.379775
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388430300873739755, guid: 52daefac7cc28f04cb02c74dc4fddc00, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.379775
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388430300873739755, guid: 52daefac7cc28f04cb02c74dc4fddc00, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 24.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388430300873739755, guid: 52daefac7cc28f04cb02c74dc4fddc00, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.91
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388430300873739755, guid: 52daefac7cc28f04cb02c74dc4fddc00, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -14.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388430300873739755, guid: 52daefac7cc28f04cb02c74dc4fddc00, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99500114
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388430300873739755, guid: 52daefac7cc28f04cb02c74dc4fddc00, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.07605091
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388430300873739755, guid: 52daefac7cc28f04cb02c74dc4fddc00, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.028614737
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388430300873739755, guid: 52daefac7cc28f04cb02c74dc4fddc00, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.058054134
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388430300873739755, guid: 52daefac7cc28f04cb02c74dc4fddc00, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -8.512
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388430300873739755, guid: 52daefac7cc28f04cb02c74dc4fddc00, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 3.813
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388430300873739755, guid: 52daefac7cc28f04cb02c74dc4fddc00, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -6.962
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388430300873739758, guid: 52daefac7cc28f04cb02c74dc4fddc00, type: 3}
+      propertyPath: m_Name
+      value: PlayerKart
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388430300873739759, guid: 52daefac7cc28f04cb02c74dc4fddc00, type: 3}
+      propertyPath: p_acceleration
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 1388430300873739759, guid: 52daefac7cc28f04cb02c74dc4fddc00, type: 3}
+    - {fileID: 751401145, guid: 52daefac7cc28f04cb02c74dc4fddc00, type: 3}
+    - {fileID: 974639965, guid: 52daefac7cc28f04cb02c74dc4fddc00, type: 3}
+    - {fileID: 2967487486349545711, guid: 52daefac7cc28f04cb02c74dc4fddc00, type: 3}
+    - {fileID: 895438768, guid: 52daefac7cc28f04cb02c74dc4fddc00, type: 3}
+    - {fileID: 2100369882, guid: 52daefac7cc28f04cb02c74dc4fddc00, type: 3}
+    - {fileID: 5671734318780633168, guid: 52daefac7cc28f04cb02c74dc4fddc00, type: 3}
+    - {fileID: 1472384742, guid: 52daefac7cc28f04cb02c74dc4fddc00, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 52daefac7cc28f04cb02c74dc4fddc00, type: 3}
 --- !u!4 &456285428 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4958812898835209126, guid: e1f7e9aafac932540b9b18c86dbd4f52, type: 3}
@@ -1809,7 +1890,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1224352281 stripped
 Transform:
@@ -25938,6 +26019,18 @@ MonoBehaviour:
           m_StringArgument: MainScene
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 180510554}
+        m_TargetAssemblyTypeName: ManagerScene, Assembly-CSharp
+        m_MethodName: TimeScaleReset
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &7416818750636255179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27418,7 +27511,7 @@ Transform:
   - {fileID: 1050654300}
   - {fileID: 2465125200351370574}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!154 &7574338385529650380
 TerrainCollider:
