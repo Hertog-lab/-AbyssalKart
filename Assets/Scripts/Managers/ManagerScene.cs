@@ -8,8 +8,6 @@ public class ManagerScene : MonoBehaviour
 {
     public GameObject[] menus;
     public int menu_i;
-
-    [SerializeField] private Scene SandBoxScene;
     
     void Start()
     {
@@ -20,7 +18,7 @@ public class ManagerScene : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tilde))
         {
-            SceneManager.SetActiveScene(SandBoxScene);
+            SceneManager.LoadScene("SandBox");
         }
     }
 
