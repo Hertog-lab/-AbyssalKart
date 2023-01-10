@@ -8,12 +8,22 @@ public class ManagerScene : MonoBehaviour
 {
     public GameObject[] menus;
     public int menu_i;
+
+    [SerializeField] private Scene SandBoxScene;
     
     void Start()
     {
         ChangeMenu(0);
     }
-    
+
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Tilde))
+        {
+            SceneManager.SetActiveScene(SandBoxScene);
+        }
+    }
+
     public void ChangeMenu(int n)
     {
         menu_i = n;
