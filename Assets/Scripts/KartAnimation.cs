@@ -33,8 +33,8 @@ public class KartAnimation : MonoBehaviour
             wheel.Rotate(Vector3.right, wheelSpeed * kart.p_acceleration * Time.deltaTime);
         }
         
-        if (Input.GetKey(right) && !Input.GetKey(left)) { horizontal = Mathf.Clamp(horizontal += 0.1f * Time.deltaTime, -1f,1f); }
-        if (Input.GetKey(left) && !Input.GetKey(right)) { horizontal = Mathf.Clamp(horizontal -= 0.1f * Time.deltaTime, -1f,1f); }
+        if (Input.GetKey(right) && !Input.GetKey(left)) { horizontal = Mathf.Clamp(horizontal -= 0.1f * Time.deltaTime, -1f,1f); }
+        if (Input.GetKey(left) && !Input.GetKey(right)) { horizontal = Mathf.Clamp(horizontal += 0.1f * Time.deltaTime, -1f,1f); }
         if (Input.GetKey(left) && Input.GetKey(right) || !Input.GetKey(left) && !Input.GetKey(right)) { horizontal = 0f; }
         
         wheelTurn = Mathf.Lerp(wheelTurn, ((horizontal < 0) ? -wheelTurnAngle : ((horizontal > 0) ? wheelTurnAngle : 0)), Time.deltaTime*12);
