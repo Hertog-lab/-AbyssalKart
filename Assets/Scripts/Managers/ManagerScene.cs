@@ -13,7 +13,15 @@ public class ManagerScene : MonoBehaviour
     {
         ChangeMenu(0);
     }
-    
+
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Tilde))
+        {
+            SceneManager.LoadScene("SandBox");
+        }
+    }
+
     public void ChangeMenu(int n)
     {
         menu_i = n;
@@ -36,5 +44,10 @@ public class ManagerScene : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void TimeScaleReset()
+    {
+        Time.timeScale = 0.01f;
     }
 }

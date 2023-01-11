@@ -7,8 +7,8 @@ TerrainLayer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: corrupted grass
-  m_DiffuseTexture: {fileID: 2800000, guid: 03ad5ae4b5068394a80fc65570afbab9, type: 3}
-  m_NormalMapTexture: {fileID: 2800000, guid: d261929abffc60443a5b1f3ecea37494, type: 3}
+  m_DiffuseTexture: {fileID: 2800000, guid: 467afaaf7475e0e4b891f26e08cbaf09, type: 3}
+  m_NormalMapTexture: {fileID: 2800000, guid: 737793f50d0688d4f96343cd0712e7fa, type: 3}
   m_MaskMapTexture: {fileID: 0}
   m_TileSize: {x: 8, y: 8}
   m_TileOffset: {x: 0, y: 0}
@@ -17,6 +17,6 @@ TerrainLayer:
   m_Smoothness: 0
   m_NormalScale: 1
   m_DiffuseRemapMin: {x: 0, y: 0, z: 0, w: 0}
-  m_DiffuseRemapMax: {x: 1, y: 0.58932966, z: 0, w: 1}
+  m_DiffuseRemapMax: {x: 1, y: 0.15831535, z: 0, w: 1}
   m_MaskMapRemapMin: {x: 0, y: 0, z: 0, w: 0}
   m_MaskMapRemapMax: {x: 0.5, y: 0.3, z: 1, w: 0.4}
