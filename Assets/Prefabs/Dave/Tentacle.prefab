@@ -9921,7 +9921,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2492499175807759543}
   - component: {fileID: 2674464960087905122}
-  - component: {fileID: 3016552378691874322}
   m_Layer: 0
   m_Name: Tentacle
   m_TagString: Untagged
@@ -9968,21 +9967,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &3016552378691874322
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3016552378691874317}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f93dc572c871d1c43875b39b6140d996, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  t: {fileID: 9136723846357831696}
-  slammin: 0
-  range: 10
 --- !u!1 &3440186168766887869
 GameObject:
   m_ObjectHideFlags: 0
@@ -10293,6 +10277,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 344925649332419999}
+  - component: {fileID: 5481579581115196769}
+  - component: {fileID: 1367567147295188879}
   m_Layer: 0
   m_Name: joint2
   m_TagString: Untagged
@@ -10316,6 +10302,36 @@ Transform:
   m_Father: {fileID: 5646746101091683691}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &5481579581115196769
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4867466473383454662}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.0103088375
+  m_Height: 0.5
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.25, z: 0}
+--- !u!114 &1367567147295188879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4867466473383454662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f93dc572c871d1c43875b39b6140d996, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  t: {fileID: 9136723846357831696}
+  slammin: 0
+  range: 10
 --- !u!1 &5478610233371272557
 GameObject:
   m_ObjectHideFlags: 0

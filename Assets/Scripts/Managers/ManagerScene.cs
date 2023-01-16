@@ -48,6 +48,6 @@ public class ManagerScene : MonoBehaviour
 
     public void TimeScaleReset()
     {
-        Time.timeScale = 0.01f;
+        Time.timeScale = 1f;
     }
 }
