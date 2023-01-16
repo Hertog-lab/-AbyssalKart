@@ -5,6 +5,7 @@ using UnityEngine;
 public class Tentacle : MonoBehaviour
 {
     public Kart target;
+    private KartPassTrough kartfinder;
     public Transform t;
     Animator anim;
     public bool slammin;
@@ -14,7 +15,7 @@ public class Tentacle : MonoBehaviour
 
     private void Start()
     {
-        
+        kartfinder = GetComponentInParent<KartPassTrough>();
         anim = GetComponent<Animator>();
         manager = FindObjectOfType<Manager>();
     }
@@ -45,7 +46,7 @@ public class Tentacle : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other == player.GetComponent<Collider>())
+        if(other == target.GetComponent<Collider>())
         {
             manager.GameOver();
         }
