@@ -7,7 +7,7 @@ public class Tentacle : MonoBehaviour
     public Kart target;
     private KartPassTrough kartfinder;
     public Transform t;
-    Animator anim;
+    public Animator anim;
     public bool slammin;
     public float range;
     private GameObject player;
@@ -16,7 +16,7 @@ public class Tentacle : MonoBehaviour
     private void Start()
     {
         kartfinder = GetComponentInParent<KartPassTrough>();
-        anim = GetComponent<Animator>();
+        anim = transform.parent.parent.parent.gameObject.GetComponent<Animator>();
         manager = FindObjectOfType<Manager>();
     }
 
@@ -36,12 +36,6 @@ public class Tentacle : MonoBehaviour
                 anim.SetBool("Slam", true);
             }
         }
-    }
-    
-    public void FinishSlam()
-    {
-        anim.SetBool("Slam", false);
-        slammin = false;
     }
 
     private void OnTriggerEnter(Collider other)

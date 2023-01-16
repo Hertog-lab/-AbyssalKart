@@ -9921,6 +9921,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2492499175807759543}
   - component: {fileID: 2674464960087905122}
+  - component: {fileID: 8767271517436106162}
   m_Layer: 0
   m_Name: Tentacle
   m_TagString: Untagged
@@ -9967,6 +9968,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &8767271517436106162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3016552378691874317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26b3e59c50e2268408568fbbe2f1ae10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tent: {fileID: 1367567147295188879}
 --- !u!1 &3440186168766887869
 GameObject:
   m_ObjectHideFlags: 0
@@ -10330,6 +10344,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   t: {fileID: 9136723846357831696}
+  anim: {fileID: 0}
   slammin: 0
   range: 10
 --- !u!1 &5478610233371272557
